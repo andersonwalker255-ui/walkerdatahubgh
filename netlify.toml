@@ -1,0 +1,15 @@
+[build]
+command = "echo 'No build required'"
+functions = "netlify/functions"
+
+# Redirect /api/* requests to your functions
+[[redirects]]
+from = "/api/*"
+to = "/.netlify/functions/api/:splat"
+status = 200
+
+# Catch-all: serve index.html for any other route (SPA support)
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
