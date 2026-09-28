@@ -1,6 +1,6 @@
 [build]
   command = "echo 'No build required'"
-  functions = "netlify/functions"
+  functions = "netlify/functions/api"
 
 # 1. Redirect /api/* requests to your serverless functions
 [[redirects]]
