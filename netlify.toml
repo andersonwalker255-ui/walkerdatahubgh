@@ -7,7 +7,7 @@
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
-  force = true  # <--- ADD THIS: Ensures API calls never fall through to the SPA
+  force = true
 
 # 2. Catch-all: serve index.html for any other route (SPA support)
 [[redirects]]
