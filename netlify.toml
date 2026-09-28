@@ -5,18 +5,18 @@
 # 1. Redirect /api/* to your serverless functions
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
+  to = "/.netlify/functions/:splat"
   status = 200
   force = true
 
-# 2. IMPORTANT: Do NOT rewrite /.netlify/* paths (functions live here)
+# 2. Prevent catch-all from hijacking function URLs
 [[redirects]]
   from = "/.netlify/*"
   to = "/.netlify/:splat"
   status = 200
   force = true
 
-# 3. Catch-all: serve index.html for any other route
+# 3. Catch-all: serve index.html for any other route (SPA support)
 [[redirects]]
   from = "/*"
   to = "/index.html"
