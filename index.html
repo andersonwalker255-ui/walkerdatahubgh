@@ -32,758 +32,153 @@
             --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
             --transition: 0.2s ease;
         }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background: var(--paper);
-            color: var(--ink);
-            font-family: var(--sans);
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-        }
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        button,
-        input {
-            font-family: var(--sans);
-            font-size: inherit;
-        }
-        .site-header {
-            background: var(--ink);
-            color: #fff;
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-        }
-        .site-header-inner {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 64px;
-        }
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .brand-badge {
-            width: 34px;
-            height: 34px;
-            border-radius: 9px;
-            background: var(--yellow);
-            color: var(--ink);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 0.8rem;
-            flex-shrink: 0;
-        }
-        .brand-text {
-            font-weight: 800;
-            font-size: 1rem;
-            letter-spacing: -0.01em;
-            line-height: 1.2;
-        }
-        .brand-text .sub {
-            display: block;
-            font-size: 0.58rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            color: var(--yellow);
-            margin-top: 1px;
-        }
-        .site-nav {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .site-nav a {
-            color: #cfcfc8;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 999px;
-            cursor: pointer;
-            transition: color var(--transition), background var(--transition);
-        }
-        .site-nav a:hover {
-            color: #fff;
-        }
-        .site-nav a.active {
-            background: var(--yellow);
-            color: var(--ink);
-        }
-        .hero-band {
-            background: var(--yellow);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-band::after {
-            content: "";
-            position: absolute;
-            right: -60px;
-            top: -60px;
-            width: 240px;
-            height: 240px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-            pointer-events: none;
-        }
-        .hero-inner {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 40px 24px 34px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 28px;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
-        }
-        .hero-copy h1 {
-            font-size: 1.9rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin: 0 0 8px;
-            max-width: 18ch;
-        }
-        .hero-copy p {
-            margin: 0;
-            color: #4a3c00;
-            max-width: 46ch;
-            font-size: 0.95rem;
-        }
-        .hero-stats {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .hero-stat {
-            background: var(--ink);
-            color: #fff;
-            border-radius: var(--r-md);
-            padding: 14px 20px;
-            min-width: 100px;
-            text-align: center;
-        }
-        .hero-stat .num {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--yellow);
-            line-height: 1;
-        }
-        .hero-stat .lbl {
-            font-size: 0.7rem;
-            color: #c9c9c2;
-            margin-top: 3px;
-        }
-        .page {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 32px 24px 80px;
-            display: none;
-        }
-        .page.active {
-            display: block;
-        }
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            margin: 0 0 2px;
-            letter-spacing: -0.01em;
-        }
-        .section-sub {
-            color: var(--muted);
-            font-size: 0.88rem;
-            margin: 0 0 18px;
-        }
-        .demo-banner {
-            background: #f0f1e9;
-            border: 1px solid #dbdccf;
-            color: #565646;
-            font-size: 0.82rem;
-            border-radius: var(--r-sm);
-            padding: 10px 16px;
-            margin-bottom: 22px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 6px;
-        }
-        .demo-banner .env-badge {
-            font-size: 0.6rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 2px 10px;
-            border-radius: 999px;
-            background: var(--success);
-            color: #fff;
-            margin-left: 4px;
-        }
-        .error-box {
-            background: var(--danger-bg);
-            color: var(--danger);
-            font-size: 0.85rem;
-            border-radius: var(--r-sm);
-            padding: 10px 14px;
-            margin-top: 10px;
-        }
-        .net-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .net-tab {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 8px 18px 8px 8px;
-            border-radius: 999px;
-            border: 1px solid var(--line);
-            background: var(--card);
-            cursor: pointer;
-            font-size: 0.88rem;
-            font-weight: 700;
-            color: var(--ink-soft);
-            transition: all var(--transition);
-            font-family: var(--sans);
-        }
-        .net-tab .dot {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.6rem;
-            font-weight: 800;
-            flex-shrink: 0;
-        }
-        .net-tab.active {
-            background: var(--ink);
-            border-color: var(--ink);
-            color: #fff;
-        }
-        .net-tab.active .dot {
-            outline: 2px solid var(--yellow);
-            outline-offset: 1px;
-        }
-        .theme-MTN .dot {
-            background: #ffcc00;
-            color: #1a1a1a;
-        }
-        .theme-TELECEL .dot {
-            background: #e4032e;
-            color: #fff;
-        }
-        .theme-AIRTELTIGO .dot {
-            background: #0033a0;
-            color: #fff;
-        }
-        .bundle-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 14px;
-        }
-        .bundle-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            background: var(--card);
-            border: 1px solid var(--line);
-            border-radius: var(--r-md);
-            padding: 16px 18px;
-            cursor: pointer;
-            text-align: left;
-            width: 100%;
-            transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
-            font-family: var(--sans);
-            font-size: inherit;
-            box-shadow: var(--shadow);
-        }
-        .bundle-card:hover:not(:disabled) {
-            border-color: var(--yellow-deep);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
-        }
-        .bundle-card:disabled {
-            opacity: 0.45;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-        .bundle-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .bundle-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.65rem;
-            font-weight: 800;
-            flex-shrink: 0;
-        }
-        .b-name {
-            font-weight: 700;
-            font-size: 0.92rem;
-        }
-        .b-stock {
-            font-size: 0.74rem;
-            color: var(--muted);
-            margin-top: 1px;
-        }
-        .b-stock.low {
-            color: var(--danger);
-            font-weight: 600;
-        }
-        .b-price {
-            font-weight: 800;
-            font-size: 1rem;
-            white-space: nowrap;
-        }
-        .empty-state {
-            padding: 40px 4px;
-            color: var(--muted);
-            font-size: 0.9rem;
-            text-align: center;
-            grid-column: 1 / -1;
-        }
-        label {
-            display: block;
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--ink-soft);
-            margin: 14px 0 5px;
-        }
-        input {
-            font-family: var(--sans);
-            font-size: 0.92rem;
-            padding: 10px 13px;
-            border: 1px solid var(--line);
-            background: var(--card);
-            border-radius: var(--r-sm);
-            width: 100%;
-            transition: border-color var(--transition), box-shadow var(--transition);
-        }
-        input:focus {
-            outline: none;
-            border-color: var(--yellow-deep);
-            box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.2);
-        }
-        .form-narrow {
-            max-width: 380px;
-        }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.88rem;
-            font-weight: 800;
-            padding: 11px 24px;
-            border: none;
-            background: var(--ink);
-            color: var(--yellow);
-            cursor: pointer;
-            border-radius: 999px;
-            font-family: var(--sans);
-            transition: opacity var(--transition), transform var(--transition);
-            min-height: 48px;
-        }
-        .btn:hover:not(:disabled) {
-            opacity: 0.9;
-            transform: scale(0.98);
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .btn.secondary {
-            background: var(--card);
-            color: var(--ink);
-            border: 1px solid var(--line);
-        }
-        .btn.secondary:hover {
-            background: var(--paper);
-        }
-        .btn .spinner-sm {
-            width: 16px;
-            height: 16px;
-            border: 2.5px solid rgba(255, 255, 255, 0.2);
-            border-top-color: var(--yellow);
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-        }
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(10, 10, 10, 0.5);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            z-index: 50;
-            backdrop-filter: blur(4px);
-        }
-        .overlay.active {
-            display: flex;
-        }
-        .modal {
-            background: var(--card);
-            border-radius: var(--r-lg);
-            max-width: 420px;
-            width: 100%;
-            overflow: hidden;
-            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
-            animation: modalIn 0.25s ease;
-        }
-        @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: scale(0.94) translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-        .modal-inner {
-            padding: 24px 24px 28px;
-            position: relative;
-        }
-        .modal-close {
-            position: absolute;
-            top: 14px;
-            right: 16px;
-            background: none;
-            border: none;
-            color: var(--muted);
-            font-size: 1.2rem;
-            padding: 0;
-            cursor: pointer;
-            line-height: 1;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background var(--transition);
-        }
-        .modal-close:hover {
-            background: var(--paper);
-            color: var(--ink);
-        }
-        .sheet-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            margin: 0 0 4px;
-            letter-spacing: -0.01em;
-        }
-        .sheet-lede {
-            font-size: 0.85rem;
-            color: var(--muted);
-            margin: 0 0 6px;
-        }
-        .momo-prompt {
-            border-radius: var(--r-md);
-            overflow: hidden;
-            border: 1px solid var(--line);
-            margin-top: 8px;
-        }
-        .momo-head {
-            padding: 14px 16px;
-            display: flex;
-            align-items: center;
-            gap: 11px;
-        }
-        .momo-badge {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 0.7rem;
-            flex-shrink: 0;
-        }
-        .momo-title {
-            font-weight: 700;
-            font-size: 0.92rem;
-        }
-        .momo-sub {
-            font-size: 0.72rem;
-            opacity: 0.75;
-        }
-        .momo-body {
-            background: var(--card);
-            padding: 18px 16px;
-        }
-        .momo-amount {
-            font-size: 1.7rem;
-            font-weight: 800;
-            margin: 0 0 4px;
-        }
-        .momo-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.83rem;
-            padding: 7px 0;
-            border-bottom: 1px solid var(--line);
-            color: var(--ink-soft);
-        }
-        .momo-row:last-of-type {
-            border-bottom: none;
-        }
-        .momo-status {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            margin-top: 14px;
-            font-size: 0.83rem;
-            color: var(--ink-soft);
-        }
-        .spinner {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            border: 2.5px solid #ddd;
-            border-top-color: currentColor;
-            animation: spin 0.8s linear infinite;
-            flex-shrink: 0;
-        }
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        .theme-MTN .momo-head {
-            background: #ffcc00;
-            color: #1a1a1a;
-        }
-        .theme-MTN .momo-badge {
-            background: #1a1a1a;
-            color: #ffcc00;
-        }
-        .theme-TELECEL .momo-head {
-            background: #e4032e;
-            color: #fff;
-        }
-        .theme-TELECEL .momo-badge {
-            background: #fff;
-            color: #e4032e;
-        }
-        .theme-AIRTELTIGO .momo-head {
-            background: #0033a0;
-            color: #fff;
-        }
-        .theme-AIRTELTIGO .momo-badge {
-            background: #fff;
-            color: #0033a0;
-        }
-        .admin-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 18px;
-            flex-wrap: wrap;
-        }
-        .admin-tab {
-            padding: 8px 18px;
-            border-radius: 999px;
-            border: 1px solid var(--line);
-            background: var(--card);
-            font-weight: 700;
-            font-size: 0.84rem;
-            cursor: pointer;
-            color: var(--ink-soft);
-            font-family: var(--sans);
-            transition: all var(--transition);
-        }
-        .admin-tab.active {
-            background: var(--ink);
-            color: var(--yellow);
-            border-color: var(--ink);
-        }
-        .admin-tab:hover:not(.active) {
-            background: var(--paper);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-            background: var(--card);
-            border: 1px solid var(--line);
-            border-radius: var(--r-md);
-            overflow: hidden;
-        }
-        th,
-        td {
-            text-align: left;
-            padding: 12px 14px;
-            border-bottom: 1px solid var(--line);
-        }
-        th {
-            color: var(--muted);
-            font-weight: 700;
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            background: #f5f5ef;
-        }
-        tr:last-child td {
-            border-bottom: none;
-        }
-        .status-chip {
-            display: inline-block;
-            padding: 2px 10px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            border-radius: 999px;
-        }
-        .status-PAID {
-            background: var(--success-bg);
-            color: var(--success);
-        }
-        .status-PENDING {
-            background: var(--pending-bg);
-            color: var(--pending-ink);
-        }
-        .status-FAILED {
-            background: var(--danger-bg);
-            color: var(--danger);
-        }
-        .stock-cell {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .stock-cell input {
-            width: 64px;
-            padding: 6px 8px;
-            font-size: 0.85rem;
-        }
-        .stock-cell button {
-            padding: 6px 14px;
-            border-radius: 8px;
-            border: 1px solid var(--line);
-            background: var(--paper);
-            font-size: 0.76rem;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: var(--sans);
-            transition: all var(--transition);
-        }
-        .stock-cell button:hover {
-            background: var(--yellow);
-            border-color: var(--yellow-deep);
-        }
-        .toast-container {
-            position: fixed;
-            top: 78px;
-            right: 20px;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-width: 360px;
-            pointer-events: none;
-        }
-        .toast {
-            background: var(--ink);
-            color: #fff;
-            padding: 12px 18px;
-            border-radius: var(--r-sm);
-            font-size: 0.85rem;
-            font-weight: 600;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            animation: slideIn 0.3s ease;
-            border-left: 4px solid var(--yellow);
-            pointer-events: auto;
-            backdrop-filter: blur(4px);
-        }
-        .toast.error {
-            border-left-color: var(--danger);
-        }
-        .toast.success {
-            border-left-color: var(--success);
-        }
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+        a { color: inherit; text-decoration: none; }
+        button, input { font-family: var(--sans); font-size: inherit; }
+        
+        /* Header */
+        .site-header { background: var(--ink); color: #fff; position: sticky; top: 0; z-index: 40; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15); }
+        .site-header-inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .brand { display: flex; align-items: center; gap: 10px; }
+        .brand-badge { width: 34px; height: 34px; border-radius: 9px; background: var(--yellow); color: var(--ink); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; flex-shrink: 0; }
+        .brand-text { font-weight: 800; font-size: 1rem; letter-spacing: -0.01em; line-height: 1.2; }
+        .brand-text .sub { display: block; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.04em; color: var(--yellow); margin-top: 1px; }
+        .site-nav { display: flex; align-items: center; gap: 4px; }
+        .site-nav a { color: #cfcfc8; font-size: 0.85rem; font-weight: 600; padding: 8px 16px; border-radius: 999px; cursor: pointer; transition: color var(--transition), background var(--transition); }
+        .site-nav a:hover { color: #fff; }
+        .site-nav a.active { background: var(--yellow); color: var(--ink); }
+        
+        /* Hero */
+        .hero-band { background: var(--yellow); position: relative; overflow: hidden; }
+        .hero-band::after { content: ""; position: absolute; right: -60px; top: -60px; width: 240px; height: 240px; border-radius: 50%; background: rgba(255, 255, 255, 0.15); pointer-events: none; }
+        .hero-inner { max-width: 1120px; margin: 0 auto; padding: 40px 24px 34px; display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; position: relative; z-index: 1; }
+        .hero-copy h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px; max-width: 18ch; }
+        .hero-copy p { margin: 0; color: #4a3c00; max-width: 46ch; font-size: 0.95rem; }
+        .hero-stats { display: flex; gap: 16px; flex-wrap: wrap; }
+        .hero-stat { background: var(--ink); color: #fff; border-radius: var(--r-md); padding: 14px 20px; min-width: 100px; text-align: center; }
+        .hero-stat .num { font-size: 1.6rem; font-weight: 800; color: var(--yellow); line-height: 1; }
+        .hero-stat .lbl { font-size: 0.7rem; color: #c9c9c2; margin-top: 3px; }
+        
+        /* Pages */
+        .page { max-width: 1120px; margin: 0 auto; padding: 32px 24px 80px; display: none; }
+        .page.active { display: block; }
+        .section-title { font-size: 1.1rem; font-weight: 800; margin: 0 0 2px; letter-spacing: -0.01em; }
+        .section-sub { color: var(--muted); font-size: 0.88rem; margin: 0 0 18px; }
+        
+        /* Banners */
+        .demo-banner { background: #f0f1e9; border: 1px solid #dbdccf; color: #565646; font-size: 0.82rem; border-radius: var(--r-sm); padding: 10px 16px; margin-bottom: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+        .demo-banner .env-badge { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 10px; border-radius: 999px; background: var(--success); color: #fff; margin-left: 4px; }
+        .error-box { background: var(--danger-bg); color: var(--danger); font-size: 0.85rem; border-radius: var(--r-sm); padding: 10px 14px; margin-top: 10px; }
+        
+        /* Network Tabs */
+        .net-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .net-tab { display: flex; align-items: center; gap: 9px; padding: 8px 18px 8px 8px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); cursor: pointer; font-size: 0.88rem; font-weight: 700; color: var(--ink-soft); transition: all var(--transition); font-family: var(--sans); }
+        .net-tab .dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 800; flex-shrink: 0; }
+        .net-tab.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+        .net-tab.active .dot { outline: 2px solid var(--yellow); outline-offset: 1px; }
+        .theme-MTN .dot { background: #ffcc00; color: #1a1a1a; }
+        .theme-TELECEL .dot { background: #e4032e; color: #fff; }
+        .theme-AIRTELTIGO .dot { background: #0033a0; color: #fff; }
+        
+        /* Bundle Grid */
+        .bundle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+        .bundle-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); padding: 16px 18px; cursor: pointer; text-align: left; width: 100%; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); font-family: var(--sans); font-size: inherit; box-shadow: var(--shadow); }
+        .bundle-card:hover:not(:disabled) { border-color: var(--yellow-deep); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1); }
+        .bundle-card:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+        .bundle-left { display: flex; align-items: center; gap: 12px; }
+        .bundle-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 800; flex-shrink: 0; }
+        .b-name { font-weight: 700; font-size: 0.92rem; }
+        .b-stock { font-size: 0.74rem; color: var(--muted); margin-top: 1px; }
+        .b-stock.low { color: var(--danger); font-weight: 600; }
+        .b-price { font-weight: 800; font-size: 1rem; white-space: nowrap; }
+        .empty-state { padding: 40px 4px; color: var(--muted); font-size: 0.9rem; text-align: center; grid-column: 1 / -1; }
+        
+        /* Forms & Buttons */
+        label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--ink-soft); margin: 14px 0 5px; }
+        input { font-family: var(--sans); font-size: 0.92rem; padding: 10px 13px; border: 1px solid var(--line); background: var(--card); border-radius: var(--r-sm); width: 100%; transition: border-color var(--transition), box-shadow var(--transition); }
+        input:focus { outline: none; border-color: var(--yellow-deep); box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.2); }
+        .form-narrow { max-width: 380px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.88rem; font-weight: 800; padding: 11px 24px; border: none; background: var(--ink); color: var(--yellow); cursor: pointer; border-radius: 999px; font-family: var(--sans); transition: opacity var(--transition), transform var(--transition); min-height: 48px; }
+        .btn:hover:not(:disabled) { opacity: 0.9; transform: scale(0.98); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn.secondary { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+        .btn.secondary:hover { background: var(--paper); }
+        .btn .spinner-sm { width: 16px; height: 16px; border: 2.5px solid rgba(255, 255, 255, 0.2); border-top-color: var(--yellow); border-radius: 50%; animation: spin 0.7s linear infinite; }
+        
+        /* Modal */
+        .overlay { position: fixed; inset: 0; background: rgba(10, 10, 10, 0.5); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 50; backdrop-filter: blur(4px); }
+        .overlay.active { display: flex; }
+        .modal { background: var(--card); border-radius: var(--r-lg); max-width: 420px; width: 100%; overflow: hidden; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3); animation: modalIn 0.25s ease; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.94) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .modal-inner { padding: 24px 24px 28px; position: relative; }
+        .modal-close { position: absolute; top: 14px; right: 16px; background: none; border: none; color: var(--muted); font-size: 1.2rem; padding: 0; cursor: pointer; line-height: 1; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background var(--transition); }
+        .modal-close:hover { background: var(--paper); color: var(--ink); }
+        .sheet-title { font-size: 1.1rem; font-weight: 800; margin: 0 0 4px; letter-spacing: -0.01em; }
+        .sheet-lede { font-size: 0.85rem; color: var(--muted); margin: 0 0 6px; }
+        
+        /* MoMo Prompt UI */
+        .momo-prompt { border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); margin-top: 8px; }
+        .momo-head { padding: 14px 16px; display: flex; align-items: center; gap: 11px; }
+        .momo-badge { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.7rem; flex-shrink: 0; }
+        .momo-title { font-weight: 700; font-size: 0.92rem; }
+        .momo-sub { font-size: 0.72rem; opacity: 0.75; }
+        .momo-body { background: var(--card); padding: 18px 16px; }
+        .momo-amount { font-size: 1.7rem; font-weight: 800; margin: 0 0 4px; }
+        .momo-row { display: flex; justify-content: space-between; font-size: 0.83rem; padding: 7px 0; border-bottom: 1px solid var(--line); color: var(--ink-soft); }
+        .momo-row:last-of-type { border-bottom: none; }
+        .momo-status { display: flex; align-items: center; gap: 9px; margin-top: 14px; font-size: 0.83rem; color: var(--ink-soft); }
+        .spinner { width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid #ddd; border-top-color: currentColor; animation: spin 0.8s linear infinite; flex-shrink: 0; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .theme-MTN .momo-head { background: #ffcc00; color: #1a1a1a; }
+        .theme-MTN .momo-badge { background: #1a1a1a; color: #ffcc00; }
+        .theme-TELECEL .momo-head { background: #e4032e; color: #fff; }
+        .theme-TELECEL .momo-badge { background: #fff; color: #e4032e; }
+        .theme-AIRTELTIGO .momo-head { background: #0033a0; color: #fff; }
+        .theme-AIRTELTIGO .momo-badge { background: #fff; color: #0033a0; }
+        
+        /* Admin */
+        .admin-tabs { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+        .admin-tab { padding: 8px 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); font-weight: 700; font-size: 0.84rem; cursor: pointer; color: var(--ink-soft); font-family: var(--sans); transition: all var(--transition); }
+        .admin-tab.active { background: var(--ink); color: var(--yellow); border-color: var(--ink); }
+        .admin-tab:hover:not(.active) { background: var(--paper); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+        th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+        th { color: var(--muted); font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; background: #f5f5ef; }
+        tr:last-child td { border-bottom: none; }
+        .status-chip { display: inline-block; padding: 2px 10px; font-size: 0.7rem; font-weight: 700; border-radius: 999px; }
+        .status-PAID { background: var(--success-bg); color: var(--success); }
+        .status-PENDING { background: var(--pending-bg); color: var(--pending-ink); }
+        .status-FAILED { background: var(--danger-bg); color: var(--danger); }
+        .stock-cell { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .stock-cell input { width: 64px; padding: 6px 8px; font-size: 0.85rem; }
+        .stock-cell button { padding: 6px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); font-size: 0.76rem; font-weight: 700; cursor: pointer; font-family: var(--sans); transition: all var(--transition); }
+        .stock-cell button:hover { background: var(--yellow); border-color: var(--yellow-deep); }
+        
+        /* Toasts */
+        .toast-container { position: fixed; top: 78px; right: 20px; z-index: 100; display: flex; flex-direction: column; gap: 8px; max-width: 360px; pointer-events: none; }
+        .toast { background: var(--ink); color: #fff; padding: 12px 18px; border-radius: var(--r-sm); font-size: 0.85rem; font-weight: 600; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); animation: slideIn 0.3s ease; border-left: 4px solid var(--yellow); pointer-events: auto; backdrop-filter: blur(4px); }
+        .toast.error { border-left-color: var(--danger); }
+        .toast.success { border-left-color: var(--success); }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        
+        /* Mobile */
         @media (max-width: 640px) {
-            .site-header-inner {
-                padding: 0 14px;
-                height: 58px;
-            }
-            .hero-inner {
-                padding: 28px 14px 24px;
-            }
-            .page {
-                padding: 24px 14px 60px;
-            }
-            .hero-stats {
-                width: 100%;
-            }
-            .hero-stat {
-                flex: 1;
-                min-width: 80px;
-                padding: 12px 14px;
-            }
-            .hero-stat .num {
-                font-size: 1.3rem;
-            }
-            .bundle-grid {
-                grid-template-columns: 1fr;
-            }
-            .stock-cell input {
-                width: 52px;
-            }
-            .brand-text .sub {
-                font-size: 0.5rem;
-            }
-            .site-nav a {
-                font-size: 0.78rem;
-                padding: 6px 12px;
-            }
-            .modal-inner {
-                padding: 18px 16px 22px;
-            }
-            .hero-copy h1 {
-                font-size: 1.5rem;
-            }
+            .site-header-inner { padding: 0 14px; height: 58px; }
+            .hero-inner { padding: 28px 14px 24px; }
+            .page { padding: 24px 14px 60px; }
+            .hero-stats { width: 100%; }
+            .hero-stat { flex: 1; min-width: 80px; padding: 12px 14px; }
+            .hero-stat .num { font-size: 1.3rem; }
+            .bundle-grid { grid-template-columns: 1fr; }
+            .stock-cell input { width: 52px; }
+            .brand-text .sub { font-size: 0.5rem; }
+            .site-nav a { font-size: 0.78rem; padding: 6px 12px; }
+            .modal-inner { padding: 18px 16px 22px; }
+            .hero-copy h1 { font-size: 1.5rem; }
         }
         @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
+            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
     </style>
 </head>
@@ -850,17 +245,12 @@
     <!-- ===== TOAST CONTAINER ===== -->
     <div class="toast-container" id="toast-container"></div>
 
-    <!-- ===== PAYSTACK SDK (v2 for Popup) ===== -->
-    <script src="https://js.paystack.co/v2/inline.js"></script>
-
     <script>
         // ============================================================
-        //  PRODUCTION CONFIG — injected via Netlify env vars
+        //  PRODUCTION CONFIG
         // ============================================================
         const CONFIG = {
-            API_BASE: window.API_BASE || '/api', // <--- FIXED: Uses Netlify redirect rule
-            PAYSTACK_PUBLIC_KEY: window.PAYSTACK_PUBLIC_KEY || '',
-            ADMIN_PASSWORD: window.ADMIN_PASSWORD || 'walker2026',
+            API_BASE: '/api', // Netlify redirect handles this
             ENABLE_LOGGING: true,
         };
 
@@ -875,27 +265,13 @@
         let pollingInterval = null;
         let useApi = false;
         let apiChecked = false;
-        let paystackLoaded = false;
 
         // ============================================================
         //  HELPERS
         // ============================================================
         function fmt(ghs) { return `GH₵${Number(ghs).toFixed(2)}`; }
-
-        function niceNet(net) {
-            if (!net) return '';
-            return net === 'AIRTELTIGO' ? 'AirtelTigo' : net.charAt(0) + net.slice(1).toLowerCase();
-        }
-
-        function getInitials(net) {
-            const map = { MTN: 'MTN', TELECEL: 'TC', AIRTELTIGO: 'AT' };
-            return map[net] || net.slice(0, 2);
-        }
-
-        function generateId() {
-            return 'ord_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-        }
-
+        function niceNet(net) { if (!net) return ''; return net === 'AIRTELTIGO' ? 'AirtelTigo' : net.charAt(0) + net.slice(1).toLowerCase(); }
+        function getInitials(net) { const map = { MTN: 'MTN', TELECEL: 'TC', AIRTELTIGO: 'AT' }; return map[net] || net.slice(0, 2); }
         function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
         // ============================================================
@@ -919,86 +295,13 @@
             });
         }
 
-        // ============================================================
-        //  LOGGING
-        // ============================================================
-        function log(...args) {
-            if (CONFIG.ENABLE_LOGGING) console.log('[WDH]', ...args);
-        }
-
-        function logError(...args) {
-            if (CONFIG.ENABLE_LOGGING) console.error('[WDH ERR]', ...args);
-        }
-
-        // ============================================================
-        //  DEFAULT PRODUCTS
-        // ============================================================
-        function getDefaultProducts() {
-            return [
-                { id: 'mtn-1', network: 'MTN', name: '1GB · 90 days', priceGHS: 4.2, stock: 50 },
-                { id: 'mtn-2', network: 'MTN', name: '2GB · 90 days', priceGHS: 8.4, stock: 48 },
-                { id: 'mtn-3', network: 'MTN', name: '3GB · 90 days', priceGHS: 12.6, stock: 45 },
-                { id: 'mtn-4', network: 'MTN', name: '4GB · 90 days', priceGHS: 16.8, stock: 42 },
-                { id: 'mtn-5', network: 'MTN', name: '5GB · 90 days', priceGHS: 21.0, stock: 40 },
-                { id: 'mtn-6', network: 'MTN', name: '6GB · 90 days', priceGHS: 25.2, stock: 38 },
-                { id: 'mtn-8', network: 'MTN', name: '8GB · 90 days', priceGHS: 33.6, stock: 35 },
-                { id: 'mtn-10', network: 'MTN', name: '10GB · 90 days', priceGHS: 42.0, stock: 32 },
-                { id: 'mtn-15', network: 'MTN', name: '15GB · 90 days', priceGHS: 63.0, stock: 28 },
-                { id: 'mtn-20', network: 'MTN', name: '20GB · 90 days', priceGHS: 84.0, stock: 25 },
-                { id: 'mtn-25', network: 'MTN', name: '25GB · 90 days', priceGHS: 105.0, stock: 22 },
-                { id: 'mtn-30', network: 'MTN', name: '30GB · 90 days', priceGHS: 126.0, stock: 20 },
-                { id: 'mtn-40', network: 'MTN', name: '40GB · 90 days', priceGHS: 168.0, stock: 16 },
-                { id: 'mtn-50', network: 'MTN', name: '50GB · 90 days', priceGHS: 210.0, stock: 14 },
-                { id: 'mtn-100', network: 'MTN', name: '100GB · 90 days', priceGHS: 420.0, stock: 8 },
-                { id: 'mtn-200', network: 'MTN', name: '200GB · 90 days', priceGHS: 840.0, stock: 4 },
-                { id: 'tel-8', network: 'TELECEL', name: '8GB · 90 days', priceGHS: 33.6, stock: 35 },
-                { id: 'tel-10', network: 'TELECEL', name: '10GB · 90 days', priceGHS: 42.0, stock: 32 },
-                { id: 'tel-15', network: 'TELECEL', name: '15GB · 90 days', priceGHS: 63.0, stock: 28 },
-                { id: 'tel-20', network: 'TELECEL', name: '20GB · 90 days', priceGHS: 84.0, stock: 25 },
-                { id: 'tel-25', network: 'TELECEL', name: '25GB · 90 days', priceGHS: 105.0, stock: 22 },
-                { id: 'tel-30', network: 'TELECEL', name: '30GB · 90 days', priceGHS: 126.0, stock: 20 },
-                { id: 'tel-40', network: 'TELECEL', name: '40GB · 90 days', priceGHS: 168.0, stock: 16 },
-                { id: 'tel-50', network: 'TELECEL', name: '50GB · 90 days', priceGHS: 210.0, stock: 14 },
-                { id: 'at-10', network: 'AIRTELTIGO', name: '10GB · 90 days', priceGHS: 42.0, stock: 32 },
-                { id: 'at-15', network: 'AIRTELTIGO', name: '15GB · 90 days', priceGHS: 63.0, stock: 28 },
-                { id: 'at-20', network: 'AIRTELTIGO', name: '20GB · 90 days', priceGHS: 84.0, stock: 25 },
-                { id: 'at-25', network: 'AIRTELTIGO', name: '25GB · 90 days', priceGHS: 105.0, stock: 22 },
-                { id: 'at-30', network: 'AIRTELTIGO', name: '30GB · 90 days', priceGHS: 126.0, stock: 20 },
-                { id: 'at-40', network: 'AIRTELTIGO', name: '40GB · 90 days', priceGHS: 168.0, stock: 16 },
-                { id: 'at-50', network: 'AIRTELTIGO', name: '50GB · 90 days', priceGHS: 210.0, stock: 14 },
-                { id: 'at-100', network: 'AIRTELTIGO', name: '100GB · 90 days', priceGHS: 420.0, stock: 8 },
-            ];
-        }
-
-        // ============================================================
-        //  LOCAL STORAGE (fallback)
-        // ============================================================
-        function loadState() {
-            try {
-                const raw = localStorage.getItem(STORAGE_KEY);
-                if (raw) {
-                    const parsed = JSON.parse(raw);
-                    if (parsed.products && parsed.products.length) return parsed;
-                }
-            } catch (_) { /* ignore */ }
-            return { products: getDefaultProducts(), orders: [] };
-        }
-
-        function saveState(state) {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-            } catch (_) { /* ignore */ }
-        }
-
-        let state = loadState();
+        function log(...args) { if (CONFIG.ENABLE_LOGGING) console.log('[WDH]', ...args); }
+        function logError(...args) { if (CONFIG.ENABLE_LOGGING) console.error('[WDH ERR]', ...args); }
 
         // ============================================================
         //  API CLIENT
         // ============================================================
-        function getToken() {
-            return localStorage.getItem('admin_token') || adminToken;
-        }
-
+        function getToken() { return localStorage.getItem('admin_token') || adminToken; }
         function setToken(token) {
             adminToken = token;
             if (token) localStorage.setItem('admin_token', token);
@@ -1006,11 +309,7 @@
         }
 
         async function apiFetch(endpoint, options = {}) {
-            if (!CONFIG.API_BASE) throw new Error('API_BASE not configured');
-            const headers = {
-                'Content-Type': 'application/json',
-                ...options.headers,
-            };
+            const headers = { 'Content-Type': 'application/json', ...options.headers };
             const token = getToken();
             if (token) headers.Authorization = `Bearer ${token}`;
 
@@ -1021,10 +320,7 @@
             if (!res.ok) {
                 const err = new Error(`API error ${res.status}`);
                 err.status = res.status;
-                if (res.status === 401) {
-                    setToken(null);
-                    adminLoggedIn = false;
-                }
+                if (res.status === 401) { setToken(null); adminLoggedIn = false; }
                 throw err;
             }
             return res.json();
@@ -1032,20 +328,15 @@
 
         async function checkApi() {
             if (apiChecked) return useApi;
-            if (!CONFIG.API_BASE) return false;
             try {
-                const res = await fetch(`${CONFIG.API_BASE}/health`, {
-                    method: 'GET',
-                    signal: AbortSignal.timeout(10000), // Increased timeout to 10s
-                });
-                const ok = res.ok;
+                const res = await fetch(`${CONFIG.API_BASE}/health`, { method: 'GET', signal: AbortSignal.timeout(5000) });
+                useApi = res.ok;
                 apiChecked = true;
-                useApi = ok;
-                log('API health:', ok ? '✅ available' : '❌ unavailable');
-                return ok;
+                log('API health:', useApi ? '✅ available' : '❌ unavailable');
+                return useApi;
             } catch (_) {
-                apiChecked = true;
                 useApi = false;
+                apiChecked = true;
                 log('API health: ❌ unavailable (timeout/error)');
                 return false;
             }
@@ -1055,142 +346,72 @@
         //  DATA ACCESS LAYER
         // ============================================================
         async function getProducts(network) {
-            if (useApi) {
-                try {
-                    const data = await apiFetch(`/products?network=${network}`);
-                    return data.products || [];
-                } catch (e) { logError('getProducts API fail', e); }
-            }
-            return state.products.filter(p => p.network === network);
+            const data = await apiFetch(`/products?network=${network}`);
+            return data.products || [];
         }
 
         async function getAllProducts() {
-            if (useApi) {
-                try {
-                    const data = await apiFetch('/products');
-                    return data.products || [];
-                } catch (e) { logError('getAllProducts API fail', e); }
-            }
-            return state.products;
+            const data = await apiFetch('/products');
+            return data.products || [];
         }
 
         async function getProduct(id) {
-            if (useApi) {
-                try {
-                    const data = await apiFetch(`/products/${id}`);
-                    return data;
-                } catch (e) { logError('getProduct API fail', e); }
-            }
-            return state.products.find(p => p.id === id);
+            // Note: This endpoint may need to be created in your backend if you want single product fetch
+            // For now, we filter from all products
+            const products = await getAllProducts();
+            return products.find(p => p.id === id);
         }
 
         async function updateProductStock(id, stock) {
-            if (useApi) {
-                try {
-                    await apiFetch(`/admin/products/${id}`, {
-                        method: 'PUT',
-                        body: JSON.stringify({ stock }),
-                    });
-                    return true;
-                } catch (e) { logError('updateProductStock API fail', e); return false; }
-            }
-            const p = state.products.find(p => p.id === id);
-            if (p) { p.stock = stock;
-                saveState(state); }
+            await apiFetch(`/admin/products`, {
+                method: 'PUT',
+                body: JSON.stringify({ id, stock }),
+            });
             return true;
         }
 
         async function createOrder(orderData) {
-            if (useApi) {
-                try {
-                    const data = await apiFetch('/orders', {
-                        method: 'POST',
-                        body: JSON.stringify(orderData),
-                    });
-                    return {
-                        id: data.orderId || generateId(),
-                        ...orderData,
-                        status: 'PENDING',
-                        createdAt: new Date().toISOString(),
-                        ...data,
-                    };
-                } catch (e) { logError('createOrder API fail', e); }
-            }
-            const order = {
-                id: generateId(),
-                ...orderData,
-                status: 'PENDING',
-                createdAt: new Date().toISOString(),
-            };
-            state.orders.push(order);
-            saveState(state);
-            return order;
+            const data = await apiFetch('/orders', {
+                method: 'POST',
+                body: JSON.stringify(orderData),
+            });
+            return data.order;
         }
 
         async function getOrder(id) {
-            if (useApi) {
-                try {
-                    const data = await apiFetch(`/orders/${id}`);
-                    return data;
-                } catch (e) { logError('getOrder API fail', e); }
-            }
-            return state.orders.find(o => o.id === id);
+            const data = await apiFetch(`/orders/${id}`);
+            return data.order;
         }
 
         async function getAllOrders() {
-            if (useApi) {
-                try {
-                    const data = await apiFetch('/admin/orders');
-                    return data.orders || [];
-                } catch (e) { logError('getAllOrders API fail', e); }
-            }
-            return state.orders;
+            const data = await apiFetch('/admin/orders');
+            return data.orders || [];
         }
 
-        async function verifyPayment(orderId) {
-            if (useApi) {
-                try {
-                    const data = await apiFetch(`/orders/${orderId}/verify`, { method: 'POST' });
-                    return data;
-                } catch (e) { logError('verifyPayment API fail', e); }
-            }
-            const order = state.orders.find(o => o.id === orderId);
-            if (!order) return { status: 'FAILED' };
-            const product = state.products.find(p => p.id === order.productId);
-            if (product && product.stock > 0) {
-                product.stock -= 1;
-                order.status = 'PAID';
-                saveState(state);
-                return { status: 'PAID' };
-            } else {
-                order.status = 'FAILED';
-                saveState(state);
-                return { status: 'FAILED' };
-            }
+        async function verifyPayment(orderId, reference) {
+            // This endpoint checks if Paystack confirmed the payment
+            const data = await apiFetch(`/orders/${orderId}/verify`, { 
+                method: 'POST',
+                body: JSON.stringify({ reference })
+            });
+            return data;
         }
 
         async function getStats() {
-            if (useApi) {
-                try {
-                    return await apiFetch('/stats');
-                } catch (e) { logError('getStats API fail', e); }
+            try {
+                return await apiFetch('/stats');
+            } catch (e) {
+                return { bundleCount: 0, delivered: 0 };
             }
-            const delivered = state.orders.filter(o => o.status === 'PAID').length;
-            return { bundleCount: state.products.length, delivered };
         }
 
         async function adminLogin(password) {
-            if (useApi) {
-                try {
-                    const data = await apiFetch('/admin/login', {
-                        method: 'POST',
-                        body: JSON.stringify({ password }),
-                    });
-                    if (data.token) { setToken(data.token); return true; }
-                    return false;
-                } catch (e) { logError('adminLogin API fail', e); return false; }
-            }
-            return password === CONFIG.ADMIN_PASSWORD;
+            const data = await apiFetch('/admin/login', {
+                method: 'POST',
+                body: JSON.stringify({ password }),
+            });
+            if (data.token) { setToken(data.token); return true; }
+            return false;
         }
 
         // ============================================================
@@ -1200,13 +421,11 @@
             try {
                 const stats = await getStats();
                 const el = document.getElementById('hero-stats');
-                if (stats) {
-                    el.innerHTML = `
-                        <div class="hero-stat"><div class="num">3</div><div class="lbl">networks</div></div>
-                        <div class="hero-stat"><div class="num">${stats.bundleCount || 0}</div><div class="lbl">bundles</div></div>
-                        <div class="hero-stat"><div class="num">${stats.delivered || 0}</div><div class="lbl">delivered</div></div>
-                    `;
-                }
+                el.innerHTML = `
+                    <div class="hero-stat"><div class="num">3</div><div class="lbl">networks</div></div>
+                    <div class="hero-stat"><div class="num">${stats.bundleCount || 0}</div><div class="lbl">bundles</div></div>
+                    <div class="hero-stat"><div class="num">${stats.delivered || 0}</div><div class="lbl">delivered</div></div>
+                `;
             } catch (_) { /* ignore */ }
         }
 
@@ -1271,7 +490,7 @@
         }
 
         // ============================================================
-        //  BUY MODAL
+        //  BUY MODAL & PURCHASE FLOW
         // ============================================================
         async function openBuyModal(productId) {
             const overlay = document.getElementById('buy-overlay');
@@ -1319,19 +538,14 @@
 
         function closeModal() {
             document.getElementById('buy-overlay').classList.remove('active');
-            if (pollingInterval) { clearInterval(pollingInterval);
-                pollingInterval = null; }
+            if (pollingInterval) { clearInterval(pollingInterval); pollingInterval = null; }
         }
 
-        // ============================================================
-        //  PURCHASE FLOW (Paystack v2 Integrated)
-        // ============================================================
         async function startPurchase(product, phone) {
             const errorEl = document.getElementById('buy-error');
             errorEl.innerHTML = '';
             const submitBtn = document.getElementById('buy-submit-btn');
-            if (submitBtn) { submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="spinner-sm"></span> Processing…'; }
+            if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<span class="spinner-sm"></span> Processing…'; }
 
             try {
                 // 1. Create the order in your database first
@@ -1348,7 +562,7 @@
                 // 2. Render the MoMo prompt UI
                 const inner = document.getElementById('modal-inner');
                 inner.innerHTML = `
-                    <p class="sheet-lede" style="margin-bottom:12px;">This is the notification your customer sees from their own network — approval happens on their phone, never on this page.</p>
+                    <p class="sheet-lede" style="margin-bottom:12px;">You will be redirected to Paystack to approve the MoMo prompt on your phone.</p>
                     <div class="momo-prompt theme-${order.network}" id="momo-prompt">
                         <div class="momo-head">
                             <div class="momo-badge">${getInitials(order.network)}</div>
@@ -1364,7 +578,7 @@
                             <div class="momo-row" style="border-bottom:none;"><span>Reference</span><span>${order.id.slice(-8)}</span></div>
                             <div class="momo-status" id="momo-status">
                                 <div class="spinner"></div>
-                                <span>Waiting for you to approve on your phone…</span>
+                                <span>Redirecting to Paystack…</span>
                             </div>
                         </div>
                     </div>
@@ -1373,148 +587,36 @@
                     </div>
                 `;
 
-                // 3. Initialize Payment with your Backend
-                const usePaystack = CONFIG.PAYSTACK_PUBLIC_KEY && CONFIG.PAYSTACK_PUBLIC_KEY.length > 10;
+                // 3. Initialize Payment with your Backend (Redirect Method)
+                const amountInPesewas = Math.round(order.totalGHS * 100);
 
-                if (usePaystack && typeof PaystackPop !== 'undefined') {
-                    try {
-                        // Convert GH₵ to Pesewas
-                        const amountInPesewas = Math.round(order.totalGHS * 100);
+                const paystackRes = await fetch(`${CONFIG.API_BASE}/paystack/initialize`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: `${phone}@walkerdatahub.gh`,
+                        amount: amountInPesewas,
+                        bundle_name: order.productName,
+                        phone: phone,
+                        network: order.network,
+                        orderId: order.id
+                    })
+                });
 
-                        // Call YOUR Netlify function to initialize the transaction
-                        const controller = new AbortController();
-                        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+                const paystackData = await paystackRes.json();
 
-                        const paystackRes = await fetch(`${CONFIG.API_BASE}/paystack/initialize`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            signal: controller.signal,
-                            body: JSON.stringify({
-                                email: `${phone}@walkerdatahub.gh`,
-                                amount: amountInPesewas,
-                                bundle_name: order.productName,
-                                orderId: order.id // <-- IMPORTANT: Make sure this is here
-                            })
-                        });
-                        clearTimeout(timeoutId);
-
-                        const paystackData = await paystackRes.json();
-
-                        if (paystackData.status && paystackData.data.access_code) {
-                            // 4. Open the Paystack v2 Popup
-                            const popup = new PaystackPop();
-                            popup.resumeTransaction(paystackData.data.access_code, {
-                                onSuccess: (transaction) => {
-                                    log('Paystack callback success', transaction);
-                                    verifyAndFinalize(order.id, transaction.reference);
-                                },
-                                onCancel: () => {
-                                    toast('Payment window closed. You can try again.', 'info');
-                                    if (pollingInterval) { clearInterval(pollingInterval); pollingInterval = null; }
-                                    closeModal();
-                                }
-                            });
-                        } else {
-                            throw new Error('Failed to initialize payment with Paystack');
-                        }
-
-                    } catch (payErr) {
-                        logError('Paystack init error', payErr);
-                        toast('Payment gateway error. Please try again.', 'error');
-                        // REMOVED: fallbackSimulate(order.id); to prevent free data on failure
-                        if (submitBtn) { 
-                            submitBtn.disabled = false; 
-                            submitBtn.textContent = 'Try again'; 
-                        }
-                    }
+                if (paystackData.status && paystackData.data.authorization_url) {
+                    // Redirect the user to Paystack
+                    window.location.href = paystackData.data.authorization_url;
                 } else {
-                    toast('💡 Please Approve Payments from Mobile Money.', 'info');
-                    // REMOVED: fallbackSimulate(order.id); to prevent free data on failure
+                    throw new Error(paystackData.message || 'Failed to initialize payment with Paystack');
                 }
-
-                // 5. Start polling to check status automatically
-                if (pollingInterval) clearInterval(pollingInterval);
-                pollingInterval = setInterval(() => {
-                    checkOrderStatus(order.id);
-                }, 3000);
 
             } catch (err) {
                 logError('startPurchase', err);
-                errorEl.innerHTML =
-                `<div class="error-box">${err.message || 'Something went wrong. Please try again.'}</div>`;
-                if (submitBtn) { submitBtn.disabled = false;
-                    submitBtn.textContent = 'Try again'; }
+                errorEl.innerHTML = `<div class="error-box">${err.message || 'Something went wrong. Please try again.'}</div>`;
+                if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Try again'; }
             }
-        }
-
-        function fallbackSimulate(orderId) {
-            setTimeout(() => {
-                verifyAndFinalize(orderId);
-            }, 30000); // Wait 30 seconds before simulating
-        }
-
-        async function verifyAndFinalize(orderId, paystackReference) {
-            try {
-                const result = await verifyPayment(orderId, paystackReference);
-                if (result && result.status === 'PAID') {
-                    toast('Payment confirmed! Bundle sent.', 'success');
-                    if (pollingInterval) { clearInterval(pollingInterval);
-                        pollingInterval = null; }
-                    renderPurchaseResult(orderId, 'PAID');
-                } else {
-                    toast('Payment failed. Please try again.', 'error');
-                    renderPurchaseResult(orderId, 'FAILED');
-                }
-            } catch (err) {
-                logError('verifyAndFinalize', err);
-                toast('Verification failed. Check order status.', 'error');
-            }
-        }
-
-        async function checkOrderStatus(orderId) {
-            try {
-                const order = await getOrder(orderId);
-                if (!order) return;
-                if (order.status === 'PAID') {
-                    if (pollingInterval) { clearInterval(pollingInterval);
-                        pollingInterval = null; }
-                    toast('Payment confirmed! Bundle sent.', 'success');
-                    renderPurchaseResult(orderId, 'PAID');
-                    renderHeroStats();
-                } else if (order.status === 'FAILED') {
-                    if (pollingInterval) { clearInterval(pollingInterval);
-                        pollingInterval = null; }
-                    renderPurchaseResult(orderId, 'FAILED');
-                }
-            } catch (_) { /* ignore */ }
-        }
-
-        function renderPurchaseResult(orderId, status) {
-            const statusEl = document.getElementById('momo-status');
-            if (statusEl) {
-                statusEl.innerHTML = status === 'PAID'
-                    ? `<span style="color:var(--success);font-weight:700;">✓ Payment approved</span>`
-                    : `<span style="color:var(--danger);font-weight:700;">✗ Payment failed</span>`;
-            }
-
-            const inner = document.getElementById('modal-inner');
-            setTimeout(() => {
-                if (status === 'PAID') {
-                    inner.innerHTML = `
-                        <h2 class="sheet-title">Bundle sent 🎉</h2>
-                        <p class="sheet-lede">Your bundle has been credited. No further action needed.</p>
-                        <button class="btn" onclick="closeModal(); renderShop();">Done</button>
-                    `;
-                    renderHeroStats();
-                    renderBundleGrid();
-                } else {
-                    inner.innerHTML = `
-                        <h2 class="sheet-title">Payment didn't go through</h2>
-                        <p class="sheet-lede">The payment was not completed. No charge was made. Please try again.</p>
-                        <button class="btn secondary" onclick="closeModal(); renderShop();">Close</button>
-                    `;
-                }
-            }, 800);
         }
 
         // ============================================================
@@ -1547,8 +649,7 @@
                         toast('Logged in successfully', 'success');
                         renderAdmin();
                     } else {
-                        document.getElementById('admin-error').innerHTML =
-                            `<div class="error-box">Wrong password.</div>`;
+                        document.getElementById('admin-error').innerHTML = `<div class="error-box">Wrong password.</div>`;
                     }
                 });
                 return;
@@ -1557,8 +658,8 @@
             body.innerHTML = `
                 <div class="section-title">Stock &amp; orders</div>
                 <div class="demo-banner">
-                    🔒 Authenticated admin. All changes are saved ${useApi ? 'to the database' : 'locally in your browser'}.
-                    ${useApi ? '<span style="font-weight:700;color:var(--success);"> ● live</span>' : ' <span style="font-weight:700;color:var(--pending-ink);"> ● local</span>'}
+                    🔒 Authenticated admin. All changes are saved to the database.
+                    <span style="font-weight:700;color:var(--success);"> ● live</span>
                 </div>
                 <div class="admin-tabs">
                     <button class="admin-tab ${adminTab === 'stock' ? 'active' : ''}" onclick="setAdminTab('stock')">Stock</button>
@@ -1659,25 +760,6 @@
         }
 
         // ============================================================
-        //  PAYSTACK SDK LOADER (v2)
-        // ============================================================
-        function loadPaystackSDK() {
-            if (typeof PaystackPop !== 'undefined') {
-                paystackLoaded = true;
-                return Promise.resolve();
-            }
-            return new Promise((resolve, reject) => {
-                const script = document.createElement('script');
-                script.src = 'https://js.paystack.co/v2/inline.js';
-                script.async = true;
-                script.onload = () => { paystackLoaded = true;
-                    resolve(); };
-                script.onerror = () => { reject(new Error('Paystack SDK failed to load')); };
-                document.head.appendChild(script);
-            });
-        }
-
-        // ============================================================
         //  INIT
         // ============================================================
         async function init() {
@@ -1693,17 +775,7 @@
                 adminLoggedIn = true;
             }
 
-            // 3. Load Paystack if key is set
-            if (CONFIG.PAYSTACK_PUBLIC_KEY && CONFIG.PAYSTACK_PUBLIC_KEY.length > 10) {
-                try {
-                    await loadPaystackSDK();
-                    log('Paystack SDK loaded');
-                } catch (e) {
-                    logError('Paystack SDK load failed', e);
-                }
-            }
-
-            // 4. Update UI labels
+            // 3. Update UI labels
             const modeLabel = document.getElementById('mode-label');
             const envBadge = document.getElementById('env-badge');
 
@@ -1712,27 +784,21 @@
                 envBadge.textContent = 'Production';
                 envBadge.style.background = 'var(--success)';
                 envBadge.style.color = '#fff';
-            } else if (CONFIG.PAYSTACK_PUBLIC_KEY && CONFIG.PAYSTACK_PUBLIC_KEY.length > 10) {
-                modeLabel.textContent = 'Live mode · local storage';
-                envBadge.textContent = 'Local (API off)';
-                envBadge.style.background = 'var(--pending-bg)';
-                envBadge.style.color = 'var(--pending-ink)';
-                toast('⚠️ Running in local mode. Deploy backend for production.', 'info');
             } else {
-                modeLabel.textContent = 'Demo mode · simulated payments';
-                envBadge.textContent = 'Demo';
-                envBadge.style.background = 'var(--pending-bg)';
-                envBadge.style.color = 'var(--pending-ink)';
-                toast('💡 Please Confirm payments.', 'info');
+                modeLabel.textContent = 'Offline mode · API unavailable';
+                envBadge.textContent = 'Offline';
+                envBadge.style.background = 'var(--danger-bg)';
+                envBadge.style.color = 'var(--danger)';
+                toast('⚠️ Backend API is offline. Please check your connection.', 'error');
             }
 
-            // 5. Render shop
+            // 4. Render shop
             await renderShop();
-            log(`✅ Ready — ${state.products.length} products, ${state.orders.length} orders, API: ${useApi ? 'live' : 'local'}`);
+            log(`✅ Ready — API: ${useApi ? 'live' : 'offline'}`);
         }
 
         // ============================================================
-        //  GLOBAL EXPOSURE (for inline onclick)
+        //  GLOBAL EXPOSURE
         // ============================================================
         window.showPage = showPage;
         window.selectNetwork = selectNetwork;
@@ -1746,10 +812,6 @@
         window.renderBundleGrid = renderBundleGrid;
         window.renderHeroStats = renderHeroStats;
         window.startPurchase = startPurchase;
-        window.verifyAndFinalize = verifyAndFinalize;
-        window.checkOrderStatus = checkOrderStatus;
-        window.renderPurchaseResult = renderPurchaseResult;
-        window.fallbackSimulate = fallbackSimulate;
 
         // ============================================================
         //  BOOT

@@ -1,16 +1,16 @@
 [build]
-command = "echo 'No build required'"
-functions = "netlify/functions"
+  command = "echo 'No build required'"
+  functions = "netlify/functions"
 
-# Redirect /api/* requests to your functions
+# 1. Redirect /api/* requests to your serverless functions
 [[redirects]]
-from = "/api/*"
-to = "/.netlify/functions/api/:splat"
-status = 200
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true  # <--- ADD THIS: Ensures API calls never fall through to the SPA
 
-# Catch-all: serve index.html for any other route (SPA support)
+# 2. Catch-all: serve index.html for any other route (SPA support)
 [[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
-#deploy
+  from = "/*"
+  to = "/index.html"
+  status = 200

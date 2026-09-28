@@ -1,13 +1,8 @@
 {
   "name": "walker-data-hub-gh",
   "version": "1.0.0",
-  "description": "Walker Data Hub GH - Mobile Bundle Shop",
-  "scripts": {
-    "start": "netlify dev"
-  },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2"
+    "axios": "^1.6.0"
   }
 }
