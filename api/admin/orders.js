@@ -1,10 +1,12 @@
-import { supabase } from '../../utils/supabase.js';
+import { supabase } from '../_utils/supabase.js';
 
-export default async (req, context) => {
-  // Check for the admin token in the headers
+export async function GET(req) {
   const authHeader = req.headers.get('authorization');
   if (authHeader !== `Bearer ${process.env.ADMIN_SECRET_TOKEN}`) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   try {
@@ -19,8 +21,10 @@ export default async (req, context) => {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
-
   } catch (error) {
-    return new Response(JSON.stringify({ error: 'Failed to fetch orders' }), { status: 500 });
+    return new Response(JSON.stringify({ error: 'Failed to fetch orders' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
-};
+}

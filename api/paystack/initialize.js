@@ -1,13 +1,6 @@
 import axios from 'axios';
 
-export default async (req, context) => {
-  if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-      status: 405,
-      headers: { 'Content-Type': 'application/json' }
-    });
-  }
-
+export async function POST(req) {
   try {
     const body = await req.json();
     const { orderId, phone, network, amount, email } = body;
@@ -27,11 +20,7 @@ export default async (req, context) => {
         email: email || `${phone}@walkerdatahubgh.com`,
         amount: amountInPesewas,
         currency: 'GHS',
-        metadata: {
-          orderId: orderId,
-          phone: phone,
-          network: network
-        }
+        metadata: { orderId, phone, network }
       },
       {
         headers: {
@@ -60,4 +49,4 @@ export default async (req, context) => {
       headers: { 'Content-Type': 'application/json' }
     });
   }
-};
+}

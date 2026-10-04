@@ -1,11 +1,7 @@
 import crypto from 'crypto';
 import { supabase } from '../_utils/supabase.js';
 
-export default async (req, context) => {
-  if (req.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 });
-  }
-
+export async function POST(req) {
   try {
     const body = await req.text();
 
@@ -15,7 +11,6 @@ export default async (req, context) => {
       .digest('hex');
 
     if (hash !== req.headers.get('x-paystack-signature')) {
-      console.warn('[webhook] Invalid signature');
       return new Response('Invalid signature', { status: 401 });
     }
 
@@ -27,23 +22,12 @@ export default async (req, context) => {
       const phone = metadata.phone;
       const network = metadata.network;
 
-      console.log('[webhook] charge.success', { orderId, phone, network, reference });
-
       if (orderId) {
-        const { error: updateErr } = await supabase
+        await supabase
           .from('orders')
-          .update({
-            status: 'PAID',
-            reference: reference,
-            paid_at: new Date().toISOString()
-          })
+          .update({ status: 'PAID', reference, paid_at: new Date().toISOString() })
           .eq('id', orderId);
 
-        if (updateErr) {
-          console.error('[webhook] update error:', updateErr);
-        }
-
-        // Simulate delivery for now
         try {
           console.log(`[vendor] Delivering to ${phone} on ${network}`);
           await supabase
@@ -51,7 +35,6 @@ export default async (req, context) => {
             .update({ status: 'DELIVERED' })
             .eq('id', orderId);
         } catch (deliveryError) {
-          console.error('[webhook] delivery failed:', deliveryError);
           await supabase
             .from('orders')
             .update({ status: 'FAILED_DELIVERY' })
@@ -69,4 +52,4 @@ export default async (req, context) => {
     console.error('[webhook]', error);
     return new Response('Webhook Error', { status: 500 });
   }
-};
+}

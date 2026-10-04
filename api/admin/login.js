@@ -1,28 +1,25 @@
-export default async (req, context) => {
-  if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 });
-  }
-
+export async function POST(req) {
   try {
     const { password } = await req.json();
 
-    // Check against an environment variable, NOT a hardcoded string
     if (password !== process.env.ADMIN_PASSWORD) {
-      return new Response(JSON.stringify({ error: 'Invalid credentials' }), { status: 401 });
+      return new Response(JSON.stringify({ error: 'Invalid credentials' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
 
-    // In a real production app, you should return a JWT here.
-    // For simplicity, we return a success flag. 
-    // The frontend should store this and send it with admin requests.
-    return new Response(JSON.stringify({ 
-      status: 'success', 
-      token: process.env.ADMIN_SECRET_TOKEN // Send a secret token to the frontend
+    return new Response(JSON.stringify({
+      status: 'success',
+      token: process.env.ADMIN_SECRET_TOKEN
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
-
   } catch (error) {
-    return new Response(JSON.stringify({ error: 'Login failed' }), { status: 500 });
+    return new Response(JSON.stringify({ error: 'Login failed' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
-};
+}
