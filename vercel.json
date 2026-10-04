@@ -4,16 +4,6 @@
   "buildCommand": "echo Done",
   "outputDirectory": ".",
   "rewrites": [
-    { "source": "/api/health", "destination": "/api/health.js" },
-    { "source": "/api/products", "destination": "/api/products.js" },
-    { "source": "/api/stats", "destination": "/api/stats.js" },
-    { "source": "/api/orders", "destination": "/api/orders.js" },
-    { "source": "/api/orders/(.*)", "destination": "/api/orders/[id].js" },
-    { "source": "/api/admin/login", "destination": "/api/admin/login.js" },
-    { "source": "/api/admin/orders", "destination": "/api/admin/orders.js" },
-    { "source": "/api/admin/products", "destination": "/api/admin/products.js" },
-    { "source": "/api/paystack/initialize", "destination": "/api/paystack/initialize.js" },
-    { "source": "/api/paystack/webhook", "destination": "/api/paystack/webhook.js" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
