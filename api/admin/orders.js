@@ -22,6 +22,7 @@ export async function GET(req) {
       headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
+    console.error('[admin/orders]', error);
     return new Response(JSON.stringify({ error: 'Failed to fetch orders' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }

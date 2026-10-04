@@ -32,3 +32,32 @@ export async function GET(req) {
     });
   }
 }
+
+export async function POST(req) {
+  const url = new URL(req.url);
+  const parts = url.pathname.split('/').filter(Boolean);
+  const orderId = parts[parts.length - 1];
+
+  try {
+    const { data, error } = await supabase
+      .from('orders')
+      .select('*')
+      .eq('id', orderId)
+      .single();
+
+    if (error) throw error;
+
+    return new Response(JSON.stringify({
+      status: data.status,
+      order: data
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: 'Failed to verify' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+}

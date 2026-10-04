@@ -2,14 +2,18 @@ import { supabase } from './_utils/supabase.js';
 
 export async function GET(req) {
   try {
-    const { count: bundleCount } = await supabase
+    const { count: bundleCount, error: productsError } = await supabase
       .from('products')
       .select('*', { count: 'exact', head: true });
 
-    const { count: delivered } = await supabase
+    if (productsError) throw productsError;
+
+    const { count: delivered, error: ordersError } = await supabase
       .from('orders')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'PAID');
+
+    if (ordersError) throw ordersError;
 
     return new Response(JSON.stringify({
       bundleCount: bundleCount || 0,

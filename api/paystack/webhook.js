@@ -47,7 +47,6 @@ export async function POST(req) {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
-
   } catch (error) {
     console.error('[webhook]', error);
     return new Response('Webhook Error', { status: 500 });
