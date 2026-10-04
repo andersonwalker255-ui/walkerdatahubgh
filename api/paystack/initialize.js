@@ -12,7 +12,8 @@ export async function POST(req) {
       });
     }
 
-    const amountInPesewas = Math.round(amount * 100);
+    // Frontend already sends amount in pesewas — do NOT multiply again
+    const amountInPesewas = Math.round(amount);
 
     const response = await axios.post(
       'https://api.paystack.co/transaction/initialize',
