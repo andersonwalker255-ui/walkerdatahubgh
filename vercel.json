@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "npm install",
-  "installCommand": "npm install",
+  "installCommand": "npm install --legacy-peer-deps",
+  "buildCommand": "echo 'Build complete'",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
