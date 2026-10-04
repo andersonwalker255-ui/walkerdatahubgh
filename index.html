@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== PRODUCTION CSS — minified & optimized ===== */
         :root {
             --yellow: #ffcc00;
             --yellow-deep: #e6b800;
@@ -37,7 +36,6 @@
         a { color: inherit; text-decoration: none; }
         button, input { font-family: var(--sans); font-size: inherit; }
         
-        /* Header */
         .site-header { background: var(--ink); color: #fff; position: sticky; top: 0; z-index: 40; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15); }
         .site-header-inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
         .brand { display: flex; align-items: center; gap: 10px; }
@@ -49,7 +47,6 @@
         .site-nav a:hover { color: #fff; }
         .site-nav a.active { background: var(--yellow); color: var(--ink); }
         
-        /* Hero */
         .hero-band { background: var(--yellow); position: relative; overflow: hidden; }
         .hero-band::after { content: ""; position: absolute; right: -60px; top: -60px; width: 240px; height: 240px; border-radius: 50%; background: rgba(255, 255, 255, 0.15); pointer-events: none; }
         .hero-inner { max-width: 1120px; margin: 0 auto; padding: 40px 24px 34px; display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; position: relative; z-index: 1; }
@@ -60,18 +57,15 @@
         .hero-stat .num { font-size: 1.6rem; font-weight: 800; color: var(--yellow); line-height: 1; }
         .hero-stat .lbl { font-size: 0.7rem; color: #c9c9c2; margin-top: 3px; }
         
-        /* Pages */
         .page { max-width: 1120px; margin: 0 auto; padding: 32px 24px 80px; display: none; }
         .page.active { display: block; }
         .section-title { font-size: 1.1rem; font-weight: 800; margin: 0 0 2px; letter-spacing: -0.01em; }
         .section-sub { color: var(--muted); font-size: 0.88rem; margin: 0 0 18px; }
         
-        /* Banners */
         .demo-banner { background: #f0f1e9; border: 1px solid #dbdccf; color: #565646; font-size: 0.82rem; border-radius: var(--r-sm); padding: 10px 16px; margin-bottom: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
         .demo-banner .env-badge { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 10px; border-radius: 999px; background: var(--success); color: #fff; margin-left: 4px; }
         .error-box { background: var(--danger-bg); color: var(--danger); font-size: 0.85rem; border-radius: var(--r-sm); padding: 10px 14px; margin-top: 10px; }
         
-        /* Network Tabs */
         .net-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
         .net-tab { display: flex; align-items: center; gap: 9px; padding: 8px 18px 8px 8px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); cursor: pointer; font-size: 0.88rem; font-weight: 700; color: var(--ink-soft); transition: all var(--transition); font-family: var(--sans); }
         .net-tab .dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 800; flex-shrink: 0; }
@@ -81,7 +75,6 @@
         .theme-TELECEL .dot { background: #e4032e; color: #fff; }
         .theme-AIRTELTIGO .dot { background: #0033a0; color: #fff; }
         
-        /* Bundle Grid */
         .bundle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
         .bundle-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); padding: 16px 18px; cursor: pointer; text-align: left; width: 100%; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); font-family: var(--sans); font-size: inherit; box-shadow: var(--shadow); }
         .bundle-card:hover:not(:disabled) { border-color: var(--yellow-deep); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1); }
@@ -94,7 +87,6 @@
         .b-price { font-weight: 800; font-size: 1rem; white-space: nowrap; }
         .empty-state { padding: 40px 4px; color: var(--muted); font-size: 0.9rem; text-align: center; grid-column: 1 / -1; }
         
-        /* Forms & Buttons */
         label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--ink-soft); margin: 14px 0 5px; }
         input { font-family: var(--sans); font-size: 0.92rem; padding: 10px 13px; border: 1px solid var(--line); background: var(--card); border-radius: var(--r-sm); width: 100%; transition: border-color var(--transition), box-shadow var(--transition); }
         input:focus { outline: none; border-color: var(--yellow-deep); box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.2); }
@@ -106,7 +98,6 @@
         .btn.secondary:hover { background: var(--paper); }
         .btn .spinner-sm { width: 16px; height: 16px; border: 2.5px solid rgba(255, 255, 255, 0.2); border-top-color: var(--yellow); border-radius: 50%; animation: spin 0.7s linear infinite; }
         
-        /* Modal */
         .overlay { position: fixed; inset: 0; background: rgba(10, 10, 10, 0.5); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 50; backdrop-filter: blur(4px); }
         .overlay.active { display: flex; }
         .modal { background: var(--card); border-radius: var(--r-lg); max-width: 420px; width: 100%; overflow: hidden; box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3); animation: modalIn 0.25s ease; }
@@ -117,7 +108,6 @@
         .sheet-title { font-size: 1.1rem; font-weight: 800; margin: 0 0 4px; letter-spacing: -0.01em; }
         .sheet-lede { font-size: 0.85rem; color: var(--muted); margin: 0 0 6px; }
         
-        /* MoMo Prompt UI */
         .momo-prompt { border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); margin-top: 8px; }
         .momo-head { padding: 14px 16px; display: flex; align-items: center; gap: 11px; }
         .momo-badge { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.7rem; flex-shrink: 0; }
@@ -137,7 +127,6 @@
         .theme-AIRTELTIGO .momo-head { background: #0033a0; color: #fff; }
         .theme-AIRTELTIGO .momo-badge { background: #fff; color: #0033a0; }
         
-        /* Admin */
         .admin-tabs { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
         .admin-tab { padding: 8px 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); font-weight: 700; font-size: 0.84rem; cursor: pointer; color: var(--ink-soft); font-family: var(--sans); transition: all var(--transition); }
         .admin-tab.active { background: var(--ink); color: var(--yellow); border-color: var(--ink); }
@@ -155,14 +144,12 @@
         .stock-cell button { padding: 6px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); font-size: 0.76rem; font-weight: 700; cursor: pointer; font-family: var(--sans); transition: all var(--transition); }
         .stock-cell button:hover { background: var(--yellow); border-color: var(--yellow-deep); }
         
-        /* Toasts */
         .toast-container { position: fixed; top: 78px; right: 20px; z-index: 100; display: flex; flex-direction: column; gap: 8px; max-width: 360px; pointer-events: none; }
         .toast { background: var(--ink); color: #fff; padding: 12px 18px; border-radius: var(--r-sm); font-size: 0.85rem; font-weight: 600; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); animation: slideIn 0.3s ease; border-left: 4px solid var(--yellow); pointer-events: auto; backdrop-filter: blur(4px); }
         .toast.error { border-left-color: var(--danger); }
         .toast.success { border-left-color: var(--success); }
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         
-        /* Mobile */
         @media (max-width: 640px) {
             .site-header-inner { padding: 0 14px; height: 58px; }
             .hero-inner { padding: 28px 14px 24px; }
@@ -184,7 +171,6 @@
 </head>
 <body>
 
-    <!-- ===== HEADER ===== -->
     <header class="site-header">
         <div class="site-header-inner">
             <div class="brand">
@@ -201,7 +187,6 @@
         </div>
     </header>
 
-    <!-- ===== HERO ===== -->
     <div class="hero-band">
         <div class="hero-inner">
             <div class="hero-copy">
@@ -216,7 +201,6 @@
         </div>
     </div>
 
-    <!-- ===== SHOP PAGE ===== -->
     <main class="page active" id="page-shop">
         <div class="demo-banner">
             <span>⚡ <span id="mode-label">Loading…</span></span>
@@ -230,33 +214,24 @@
         </div>
     </main>
 
-    <!-- ===== ADMIN PAGE ===== -->
     <main class="page" id="page-admin">
         <div id="admin-body"></div>
     </main>
 
-    <!-- ===== BUY MODAL ===== -->
     <div class="overlay" id="buy-overlay">
         <div class="modal">
             <div class="modal-inner" id="modal-inner"></div>
         </div>
     </div>
 
-    <!-- ===== TOAST CONTAINER ===== -->
     <div class="toast-container" id="toast-container"></div>
 
     <script>
-        // ============================================================
-        //  PRODUCTION CONFIG
-        // ============================================================
         const CONFIG = {
-            API_BASE: '/api', // Netlify redirect handles this
+            API_BASE: '/api',
             ENABLE_LOGGING: true,
         };
 
-        // ============================================================
-        //  STATE
-        // ============================================================
         const STORAGE_KEY = 'walker_data_hub_v4';
         let activeNetwork = 'MTN';
         let adminTab = 'stock';
@@ -266,17 +241,11 @@
         let useApi = false;
         let apiChecked = false;
 
-        // ============================================================
-        //  HELPERS
-        // ============================================================
         function fmt(ghs) { return `GH₵${Number(ghs).toFixed(2)}`; }
         function niceNet(net) { if (!net) return ''; return net === 'AIRTELTIGO' ? 'AirtelTigo' : net.charAt(0) + net.slice(1).toLowerCase(); }
         function getInitials(net) { const map = { MTN: 'MTN', TELECEL: 'TC', AIRTELTIGO: 'AT' }; return map[net] || net.slice(0, 2); }
         function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-        // ============================================================
-        //  TOAST SYSTEM
-        // ============================================================
         function toast(message, type = 'info') {
             const container = document.getElementById('toast-container');
             const el = document.createElement('div');
@@ -298,9 +267,6 @@
         function log(...args) { if (CONFIG.ENABLE_LOGGING) console.log('[WDH]', ...args); }
         function logError(...args) { if (CONFIG.ENABLE_LOGGING) console.error('[WDH ERR]', ...args); }
 
-        // ============================================================
-        //  API CLIENT
-        // ============================================================
         function getToken() { return localStorage.getItem('admin_token') || adminToken; }
         function setToken(token) {
             adminToken = token;
@@ -342,9 +308,6 @@
             }
         }
 
-        // ============================================================
-        //  DATA ACCESS LAYER
-        // ============================================================
         async function getProducts(network) {
             const data = await apiFetch(`/products?network=${network}`);
             return data.products || [];
@@ -356,8 +319,6 @@
         }
 
         async function getProduct(id) {
-            // Note: This endpoint may need to be created in your backend if you want single product fetch
-            // For now, we filter from all products
             const products = await getAllProducts();
             return products.find(p => p.id === id);
         }
@@ -389,7 +350,6 @@
         }
 
         async function verifyPayment(orderId, reference) {
-            // This endpoint checks if Paystack confirmed the payment
             const data = await apiFetch(`/orders/${orderId}/verify`, { 
                 method: 'POST',
                 body: JSON.stringify({ reference })
@@ -414,9 +374,6 @@
             return false;
         }
 
-        // ============================================================
-        //  RENDER FUNCTIONS
-        // ============================================================
         async function renderHeroStats() {
             try {
                 const stats = await getStats();
@@ -489,9 +446,6 @@
             }
         }
 
-        // ============================================================
-        //  BUY MODAL & PURCHASE FLOW
-        // ============================================================
         async function openBuyModal(productId) {
             const overlay = document.getElementById('buy-overlay');
             const inner = document.getElementById('modal-inner');
@@ -541,6 +495,9 @@
             if (pollingInterval) { clearInterval(pollingInterval); pollingInterval = null; }
         }
 
+        // ============================================================
+        //  FIXED startPurchase — uses product.priceGHS, never NaN
+        // ============================================================
         async function startPurchase(product, phone) {
             const errorEl = document.getElementById('buy-error');
             errorEl.innerHTML = '';
@@ -548,7 +505,7 @@
             if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<span class="spinner-sm"></span> Processing…'; }
 
             try {
-                // 1. Create the order in your database first
+                // 1. Create the order
                 const order = await createOrder({
                     customerPhone: phone,
                     network: product.network,
@@ -559,23 +516,23 @@
 
                 if (!order) throw new Error('Failed to create order');
 
-                // 2. Render the MoMo prompt UI
+                // 2. Render MoMo UI
                 const inner = document.getElementById('modal-inner');
                 inner.innerHTML = `
                     <p class="sheet-lede" style="margin-bottom:12px;">You will be redirected to Paystack to approve the MoMo prompt on your phone.</p>
-                    <div class="momo-prompt theme-${order.network}" id="momo-prompt">
+                    <div class="momo-prompt theme-${product.network}" id="momo-prompt">
                         <div class="momo-head">
-                            <div class="momo-badge">${getInitials(order.network)}</div>
+                            <div class="momo-badge">${getInitials(product.network)}</div>
                             <div>
-                                <div class="momo-title">${order.network === 'MTN' ? 'MTN MoMo' : order.network === 'TELECEL' ? 'Telecel Cash' : 'AirtelTigo Money'}</div>
+                                <div class="momo-title">${product.network === 'MTN' ? 'MTN MoMo' : product.network === 'TELECEL' ? 'Telecel Cash' : 'AirtelTigo Money'}</div>
                                 <div class="momo-sub">Payment request</div>
                             </div>
                         </div>
                         <div class="momo-body">
-                            <p class="momo-amount">${fmt(order.totalGHS)}</p>
+                            <p class="momo-amount">${fmt(product.priceGHS)}</p>
                             <div class="momo-row"><span>To</span><span>Walker Data Hub GH</span></div>
                             <div class="momo-row"><span>From</span><span>${phone}</span></div>
-                            <div class="momo-row" style="border-bottom:none;"><span>Reference</span><span>${order.id.slice(-8)}</span></div>
+                            <div class="momo-row" style="border-bottom:none;"><span>Reference</span><span>${String(order.id).slice(-8)}</span></div>
                             <div class="momo-status" id="momo-status">
                                 <div class="spinner"></div>
                                 <span>Redirecting to Paystack…</span>
@@ -587,8 +544,8 @@
                     </div>
                 `;
 
-                // 3. Initialize Payment with your Backend (Redirect Method)
-                const amountInPesewas = Math.round(order.totalGHS * 100);
+                // 3. FIXED amount — uses product.priceGHS directly (guaranteed number)
+                const amountInPesewas = Math.round(Number(product.priceGHS) * 100);
 
                 const paystackRes = await fetch(`${CONFIG.API_BASE}/paystack/initialize`, {
                     method: 'POST',
@@ -596,20 +553,21 @@
                     body: JSON.stringify({
                         email: `${phone}@walkerdatahub.gh`,
                         amount: amountInPesewas,
-                        bundle_name: order.productName,
+                        bundle_name: `${product.network} ${product.name}`,
                         phone: phone,
-                        network: order.network,
+                        network: product.network,
                         orderId: order.id
                     })
                 });
 
                 const paystackData = await paystackRes.json();
 
-                if (paystackData.status && paystackData.data.authorization_url) {
-                    // Redirect the user to Paystack
+                if (paystackData.status && paystackData.data && paystackData.data.authorization_url) {
                     window.location.href = paystackData.data.authorization_url;
+                } else if (paystackData.authorization_url) {
+                    window.location.href = paystackData.authorization_url;
                 } else {
-                    throw new Error(paystackData.message || 'Failed to initialize payment with Paystack');
+                    throw new Error(paystackData.message || paystackData.error || 'Failed to initialize payment');
                 }
 
             } catch (err) {
@@ -619,9 +577,6 @@
             }
         }
 
-        // ============================================================
-        //  ADMIN
-        // ============================================================
         async function renderAdmin() {
             const body = document.getElementById('admin-body');
 
@@ -718,11 +673,11 @@
                             <tr><th>Number</th><th>Bundle</th><th>Total</th><th>Status</th><th>Date</th></tr>
                             ${orders.slice().reverse().map(o => `
                                 <tr>
-                                    <td>${o.customerPhone}</td>
-                                    <td>${o.productName}</td>
-                                    <td>${fmt(o.totalGHS)}</td>
+                                    <td>${o.customer_phone || o.phone || o.customerPhone || ''}</td>
+                                    <td>${o.product_name || o.productName || ''}</td>
+                                    <td>${fmt(o.total_ghs || o.amount || o.totalGHS || 0)}</td>
                                     <td><span class="status-chip status-${o.status}">${o.status}</span></td>
-                                    <td style="font-size:0.75rem;color:var(--muted);">${new Date(o.createdAt).toLocaleDateString()}</td>
+                                    <td style="font-size:0.75rem;color:var(--muted);">${new Date(o.created_at || o.createdAt).toLocaleDateString()}</td>
                                 </tr>
                             `).join('')}
                         </table>
@@ -759,23 +714,17 @@
             renderAdmin();
         }
 
-        // ============================================================
-        //  INIT
-        // ============================================================
         async function init() {
             log('🚀 Walker Data Hub GH initializing...');
 
-            // 1. Check API
             await checkApi();
 
-            // 2. Restore token
             const savedToken = localStorage.getItem('admin_token');
             if (savedToken) {
                 adminToken = savedToken;
                 adminLoggedIn = true;
             }
 
-            // 3. Update UI labels
             const modeLabel = document.getElementById('mode-label');
             const envBadge = document.getElementById('env-badge');
 
@@ -792,14 +741,10 @@
                 toast('⚠️ Backend API is offline. Please check your connection.', 'error');
             }
 
-            // 4. Render shop
             await renderShop();
             log(`✅ Ready — API: ${useApi ? 'live' : 'offline'}`);
         }
 
-        // ============================================================
-        //  GLOBAL EXPOSURE
-        // ============================================================
         window.showPage = showPage;
         window.selectNetwork = selectNetwork;
         window.openBuyModal = openBuyModal;
@@ -813,9 +758,6 @@
         window.renderHeroStats = renderHeroStats;
         window.startPurchase = startPurchase;
 
-        // ============================================================
-        //  BOOT
-        // ============================================================
         document.addEventListener('DOMContentLoaded', init);
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
             init();
