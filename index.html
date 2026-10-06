@@ -127,23 +127,6 @@
         .theme-AIRTELTIGO .momo-head { background: #0033a0; color: #fff; }
         .theme-AIRTELTIGO .momo-badge { background: #fff; color: #0033a0; }
         
-        .admin-tabs { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
-        .admin-tab { padding: 8px 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); font-weight: 700; font-size: 0.84rem; cursor: pointer; color: var(--ink-soft); font-family: var(--sans); transition: all var(--transition); }
-        .admin-tab.active { background: var(--ink); color: var(--yellow); border-color: var(--ink); }
-        .admin-tab:hover:not(.active) { background: var(--paper); }
-        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
-        th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); }
-        th { color: var(--muted); font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; background: #f5f5ef; }
-        tr:last-child td { border-bottom: none; }
-        .status-chip { display: inline-block; padding: 2px 10px; font-size: 0.7rem; font-weight: 700; border-radius: 999px; }
-        .status-PAID { background: var(--success-bg); color: var(--success); }
-        .status-PENDING { background: var(--pending-bg); color: var(--pending-ink); }
-        .status-FAILED { background: var(--danger-bg); color: var(--danger); }
-        .stock-cell { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .stock-cell input { width: 64px; padding: 6px 8px; font-size: 0.85rem; }
-        .stock-cell button { padding: 6px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); font-size: 0.76rem; font-weight: 700; cursor: pointer; font-family: var(--sans); transition: all var(--transition); }
-        .stock-cell button:hover { background: var(--yellow); border-color: var(--yellow-deep); }
-        
         .toast-container { position: fixed; top: 78px; right: 20px; z-index: 100; display: flex; flex-direction: column; gap: 8px; max-width: 360px; pointer-events: none; }
         .toast { background: var(--ink); color: #fff; padding: 12px 18px; border-radius: var(--r-sm); font-size: 0.85rem; font-weight: 600; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); animation: slideIn 0.3s ease; border-left: 4px solid var(--yellow); pointer-events: auto; backdrop-filter: blur(4px); }
         .toast.error { border-left-color: var(--danger); }
@@ -158,7 +141,6 @@
             .hero-stat { flex: 1; min-width: 80px; padding: 12px 14px; }
             .hero-stat .num { font-size: 1.3rem; }
             .bundle-grid { grid-template-columns: 1fr; }
-            .stock-cell input { width: 52px; }
             .brand-text .sub { font-size: 0.5rem; }
             .site-nav a { font-size: 0.78rem; padding: 6px 12px; }
             .modal-inner { padding: 18px 16px 22px; }
@@ -180,10 +162,6 @@
                     <span class="sub">CHEAP BUNDLES · MOMO PAY</span>
                 </div>
             </div>
-            <nav class="site-nav">
-                <a onclick="showPage('shop')" id="nav-shop" class="active">Buy data</a>
-                <a onclick="showPage('admin')" id="nav-admin">Admin</a>
-            </nav>
         </div>
     </header>
 
@@ -214,10 +192,6 @@
         </div>
     </main>
 
-    <main class="page" id="page-admin">
-        <div id="admin-body"></div>
-    </main>
-
     <div class="overlay" id="buy-overlay">
         <div class="modal">
             <div class="modal-inner" id="modal-inner"></div>
@@ -234,17 +208,12 @@
 
         const STORAGE_KEY = 'walker_data_hub_v4';
         let activeNetwork = 'MTN';
-        let adminTab = 'stock';
-        let adminLoggedIn = false;
-        let adminToken = null;
-        let pollingInterval = null;
         let useApi = false;
         let apiChecked = false;
 
         function fmt(ghs) { return `GH₵${Number(ghs).toFixed(2)}`; }
         function niceNet(net) { if (!net) return ''; return net === 'AIRTELTIGO' ? 'AirtelTigo' : net.charAt(0) + net.slice(1).toLowerCase(); }
         function getInitials(net) { const map = { MTN: 'MTN', TELECEL: 'TC', AIRTELTIGO: 'AT' }; return map[net] || net.slice(0, 2); }
-        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
         function toast(message, type = 'info') {
             const container = document.getElementById('toast-container');
@@ -267,26 +236,14 @@
         function log(...args) { if (CONFIG.ENABLE_LOGGING) console.log('[WDH]', ...args); }
         function logError(...args) { if (CONFIG.ENABLE_LOGGING) console.error('[WDH ERR]', ...args); }
 
-        function getToken() { return localStorage.getItem('admin_token') || adminToken; }
-        function setToken(token) {
-            adminToken = token;
-            if (token) localStorage.setItem('admin_token', token);
-            else localStorage.removeItem('admin_token');
-        }
-
         async function apiFetch(endpoint, options = {}) {
             const headers = { 'Content-Type': 'application/json', ...options.headers };
-            const token = getToken();
-            if (token) headers.Authorization = `Bearer ${token}`;
-
             const url = `${CONFIG.API_BASE}${endpoint}`;
             log('→', url, options.method || 'GET');
-
             const res = await fetch(url, { ...options, headers });
             if (!res.ok) {
                 const err = new Error(`API error ${res.status}`);
                 err.status = res.status;
-                if (res.status === 401) { setToken(null); adminLoggedIn = false; }
                 throw err;
             }
             return res.json();
@@ -323,14 +280,6 @@
             return products.find(p => p.id === id);
         }
 
-        async function updateProductStock(id, stock) {
-            await apiFetch(`/admin/products`, {
-                method: 'PUT',
-                body: JSON.stringify({ id, stock }),
-            });
-            return true;
-        }
-
         async function createOrder(orderData) {
             const data = await apiFetch('/orders', {
                 method: 'POST',
@@ -339,39 +288,12 @@
             return data.order;
         }
 
-        async function getOrder(id) {
-            const data = await apiFetch(`/orders/${id}`);
-            return data.order;
-        }
-
-        async function getAllOrders() {
-            const data = await apiFetch('/admin/orders');
-            return data.orders || [];
-        }
-
-        async function verifyPayment(orderId, reference) {
-            const data = await apiFetch(`/orders/${orderId}/verify`, { 
-                method: 'POST',
-                body: JSON.stringify({ reference })
-            });
-            return data;
-        }
-
         async function getStats() {
             try {
                 return await apiFetch('/stats');
             } catch (e) {
                 return { bundleCount: 0, delivered: 0 };
             }
-        }
-
-        async function adminLogin(password) {
-            const data = await apiFetch('/admin/login', {
-                method: 'POST',
-                body: JSON.stringify({ password }),
-            });
-            if (data.token) { setToken(data.token); return true; }
-            return false;
         }
 
         async function renderHeroStats() {
@@ -384,15 +306,6 @@
                     <div class="hero-stat"><div class="num">${stats.delivered || 0}</div><div class="lbl">delivered</div></div>
                 `;
             } catch (_) { /* ignore */ }
-        }
-
-        function showPage(name) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.site-nav a').forEach(a => a.classList.remove('active'));
-            document.getElementById(`page-${name}`).classList.add('active');
-            document.getElementById(`nav-${name}`).classList.add('active');
-            if (name === 'shop') renderShop();
-            if (name === 'admin') renderAdmin();
         }
 
         async function renderShop() {
@@ -492,12 +405,8 @@
 
         function closeModal() {
             document.getElementById('buy-overlay').classList.remove('active');
-            if (pollingInterval) { clearInterval(pollingInterval); pollingInterval = null; }
         }
 
-        // ============================================================
-        //  FIXED startPurchase — uses product.priceGHS, never NaN
-        // ============================================================
         async function startPurchase(product, phone) {
             const errorEl = document.getElementById('buy-error');
             errorEl.innerHTML = '';
@@ -505,7 +414,6 @@
             if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<span class="spinner-sm"></span> Processing…'; }
 
             try {
-                // 1. Create the order
                 const order = await createOrder({
                     customerPhone: phone,
                     network: product.network,
@@ -516,11 +424,10 @@
 
                 if (!order) throw new Error('Failed to create order');
 
-                // 2. Render MoMo UI
                 const inner = document.getElementById('modal-inner');
                 inner.innerHTML = `
                     <p class="sheet-lede" style="margin-bottom:12px;">You will be redirected to Paystack to approve the MoMo prompt on your phone.</p>
-                    <div class="momo-prompt theme-${product.network}" id="momo-prompt">
+                    <div class="momo-prompt theme-${product.network}">
                         <div class="momo-head">
                             <div class="momo-badge">${getInitials(product.network)}</div>
                             <div>
@@ -533,7 +440,7 @@
                             <div class="momo-row"><span>To</span><span>Walker Data Hub GH</span></div>
                             <div class="momo-row"><span>From</span><span>${phone}</span></div>
                             <div class="momo-row" style="border-bottom:none;"><span>Reference</span><span>${String(order.id).slice(-8)}</span></div>
-                            <div class="momo-status" id="momo-status">
+                            <div class="momo-status">
                                 <div class="spinner"></div>
                                 <span>Redirecting to Paystack…</span>
                             </div>
@@ -544,7 +451,6 @@
                     </div>
                 `;
 
-                // 3. FIXED amount — uses product.priceGHS directly (guaranteed number)
                 const amountInPesewas = Math.round(Number(product.priceGHS) * 100);
 
                 const paystackRes = await fetch(`${CONFIG.API_BASE}/paystack/initialize`, {
@@ -577,157 +483,11 @@
             }
         }
 
-        async function renderAdmin() {
-            const body = document.getElementById('admin-body');
-
-            if (!adminLoggedIn && getToken()) {
-                adminLoggedIn = true;
-            }
-
-            if (!adminLoggedIn) {
-                body.innerHTML = `
-                    <div class="section-title">Admin login</div>
-                    <p class="section-sub">Secure admin panel — manage stock and view orders.</p>
-                    <div id="admin-error"></div>
-                    <form class="form-narrow" id="admin-login-form">
-                        <label>Password</label>
-                        <input required type="password" id="admin-password" placeholder="Enter admin password" autocomplete="current-password" />
-                        <div style="margin-top:16px;"><button class="btn" type="submit">Log in</button></div>
-                    </form>
-                `;
-                document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    const pw = document.getElementById('admin-password').value;
-                    const ok = await adminLogin(pw);
-                    if (ok) {
-                        adminLoggedIn = true;
-                        toast('Logged in successfully', 'success');
-                        renderAdmin();
-                    } else {
-                        document.getElementById('admin-error').innerHTML = `<div class="error-box">Wrong password.</div>`;
-                    }
-                });
-                return;
-            }
-
-            body.innerHTML = `
-                <div class="section-title">Stock &amp; orders</div>
-                <div class="demo-banner">
-                    🔒 Authenticated admin. All changes are saved to the database.
-                    <span style="font-weight:700;color:var(--success);"> ● live</span>
-                </div>
-                <div class="admin-tabs">
-                    <button class="admin-tab ${adminTab === 'stock' ? 'active' : ''}" onclick="setAdminTab('stock')">Stock</button>
-                    <button class="admin-tab ${adminTab === 'orders' ? 'active' : ''}" onclick="setAdminTab('orders')">Orders</button>
-                </div>
-                <div id="admin-panel"></div>
-                <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;">
-                    <button class="btn secondary" onclick="logoutAdmin()">Log out</button>
-                </div>
-            `;
-            renderAdminPanel();
-        }
-
-        function setAdminTab(tab) {
-            adminTab = tab;
-            renderAdmin();
-        }
-
-        async function renderAdminPanel() {
-            const panel = document.getElementById('admin-panel');
-            if (!panel) return;
-
-            try {
-                if (adminTab === 'stock') {
-                    const products = await getAllProducts();
-                    if (!products || products.length === 0) {
-                        panel.innerHTML = `<div class="empty-state">No products found.</div>`;
-                        return;
-                    }
-                    panel.innerHTML = `
-                        <table>
-                            <tr><th>Bundle</th><th>Network</th><th>Price</th><th>Stock</th><th></th></tr>
-                            ${products.map(p => `
-                                <tr>
-                                    <td>${p.name}</td>
-                                    <td>${niceNet(p.network)}</td>
-                                    <td>${fmt(p.priceGHS)}</td>
-                                    <td colspan="2">
-                                        <span class="stock-cell">
-                                            <input type="number" id="stock-input-${p.id}" value="${p.stock}" min="0" />
-                                            <button onclick="updateStock('${p.id}')">Update</button>
-                                        </span>
-                                    </td>
-                                </tr>
-                            `).join('')}
-                        </table>
-                    `;
-                } else {
-                    const orders = await getAllOrders();
-                    if (!orders || orders.length === 0) {
-                        panel.innerHTML = `<div class="empty-state">No orders yet.</div>`;
-                        return;
-                    }
-                    panel.innerHTML = `
-                        <table>
-                            <tr><th>Number</th><th>Bundle</th><th>Total</th><th>Status</th><th>Date</th></tr>
-                            ${orders.slice().reverse().map(o => `
-                                <tr>
-                                    <td>${o.customer_phone || o.phone || o.customerPhone || ''}</td>
-                                    <td>${o.product_name || o.productName || ''}</td>
-                                    <td>${fmt(o.total_ghs || o.amount || o.totalGHS || 0)}</td>
-                                    <td><span class="status-chip status-${o.status}">${o.status}</span></td>
-                                    <td style="font-size:0.75rem;color:var(--muted);">${new Date(o.created_at || o.createdAt).toLocaleDateString()}</td>
-                                </tr>
-                            `).join('')}
-                        </table>
-                    `;
-                }
-            } catch (e) {
-                logError('renderAdminPanel', e);
-                panel.innerHTML = `<div class="error-box">Failed to load admin data. Please refresh.</div>`;
-            }
-        }
-
-        async function updateStock(productId) {
-            const input = document.getElementById(`stock-input-${productId}`);
-            if (!input) return;
-            const val = parseInt(input.value, 10);
-            if (isNaN(val) || val < 0) {
-                toast('Please enter a valid number', 'error');
-                return;
-            }
-            const ok = await updateProductStock(productId, val);
-            if (ok) {
-                toast('Stock updated', 'success');
-                renderAdminPanel();
-                renderBundleGrid();
-            } else {
-                toast('Failed to update stock', 'error');
-            }
-        }
-
-        function logoutAdmin() {
-            setToken(null);
-            adminLoggedIn = false;
-            toast('Logged out', 'info');
-            renderAdmin();
-        }
-
         async function init() {
             log('🚀 Walker Data Hub GH initializing...');
-
             await checkApi();
-
-            const savedToken = localStorage.getItem('admin_token');
-            if (savedToken) {
-                adminToken = savedToken;
-                adminLoggedIn = true;
-            }
-
             const modeLabel = document.getElementById('mode-label');
             const envBadge = document.getElementById('env-badge');
-
             if (useApi) {
                 modeLabel.textContent = 'Live mode · API connected';
                 envBadge.textContent = 'Production';
@@ -740,20 +500,14 @@
                 envBadge.style.color = 'var(--danger)';
                 toast('⚠️ Backend API is offline. Please check your connection.', 'error');
             }
-
             await renderShop();
             log(`✅ Ready — API: ${useApi ? 'live' : 'offline'}`);
         }
 
-        window.showPage = showPage;
         window.selectNetwork = selectNetwork;
         window.openBuyModal = openBuyModal;
         window.closeModal = closeModal;
-        window.setAdminTab = setAdminTab;
-        window.updateStock = updateStock;
-        window.logoutAdmin = logoutAdmin;
         window.renderShop = renderShop;
-        window.renderAdmin = renderAdmin;
         window.renderBundleGrid = renderBundleGrid;
         window.renderHeroStats = renderHeroStats;
         window.startPurchase = startPurchase;
