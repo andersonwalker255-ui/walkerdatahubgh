@@ -78,13 +78,21 @@
         .bundle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
         .bundle-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); padding: 16px 18px; cursor: pointer; text-align: left; width: 100%; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); font-family: var(--sans); font-size: inherit; box-shadow: var(--shadow); }
         .bundle-card:hover:not(:disabled) { border-color: var(--yellow-deep); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1); }
-        .bundle-card:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+        .bundle-card:disabled { opacity: 0.75; cursor: not-allowed; box-shadow: none; background: #f9f9f9; }
         .bundle-left { display: flex; align-items: center; gap: 12px; }
         .bundle-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 800; flex-shrink: 0; }
         .b-name { font-weight: 700; font-size: 0.92rem; }
         .b-stock { font-size: 0.74rem; color: var(--muted); margin-top: 1px; }
         .b-stock.low { color: var(--danger); font-weight: 600; }
         .b-price { font-weight: 800; font-size: 1rem; white-space: nowrap; }
+        
+        /* NEW: Blur effect for prices */
+        .price-blur {
+            filter: blur(5px);
+            user-select: none;
+            opacity: 0.6;
+        }
+
         .empty-state { padding: 40px 4px; color: var(--muted); font-size: 0.9rem; text-align: center; grid-column: 1 / -1; }
         
         label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--ink-soft); margin: 14px 0 5px; }
@@ -169,7 +177,8 @@
         <div class="hero-inner">
             <div class="hero-copy">
                 <h1>Tap a bundle, pay with MoMo, done</h1>
-                <p>No account, no cart — just your number. Pick a bundle and approve the prompt on your phone.</p>
+                <!-- Updated text to indicate maintenance -->
+                <p>We are currently experiencing technical difficulties. Purchases are temporarily unavailable while we resolve the issue.</p>
             </div>
             <div class="hero-stats" id="hero-stats">
                 <div class="hero-stat"><div class="num">3</div><div class="lbl">networks</div></div>
@@ -340,8 +349,9 @@
                     grid.innerHTML = `<div class="empty-state">No bundles for this network yet.</div>`;
                     return;
                 }
+                // UPDATED: Added 'disabled' attribute to the button and 'price-blur' class to the price span
                 grid.innerHTML = bundles.map(p => `
-                    <button class="bundle-card theme-${p.network}" ${p.stock === 0 ? 'disabled' : ''} onclick="openBuyModal('${p.id}')">
+                    <button class="bundle-card theme-${p.network}" disabled onclick="openBuyModal('${p.id}')">
                         <span class="bundle-left">
                             <span class="bundle-icon dot">${getInitials(p.network)}</span>
                             <span>
@@ -349,7 +359,7 @@
                                 <div class="b-stock ${p.stock > 0 && p.stock <= 5 ? 'low' : ''}">${p.stock > 0 ? p.stock + ' left' : 'Out of stock'}</div>
                             </span>
                         </span>
-                        <span class="b-price">${fmt(p.priceGHS)}</span>
+                        <span class="b-price price-blur">${fmt(p.priceGHS)}</span>
                     </button>
                 `).join('');
             } catch (e) {
