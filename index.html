@@ -86,7 +86,6 @@
         .b-stock.low { color: var(--danger); font-weight: 600; }
         .b-price { font-weight: 800; font-size: 1rem; white-space: nowrap; }
         
-        /* NEW: Blur effect for prices */
         .price-blur {
             filter: blur(5px);
             user-select: none;
@@ -157,6 +156,132 @@
         @media (prefers-reduced-motion: reduce) {
             * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
+
+        /* --- CHATBOT STYLES --- */
+        .chat-toggle-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--yellow);
+            color: var(--ink);
+            border: none;
+            box-shadow: 0 4px 16px rgba(255, 204, 0, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: transform 0.2s ease, background 0.2s;
+        }
+        .chat-toggle-btn:hover { transform: scale(1.05); background: var(--yellow-deep); }
+        .chat-toggle-btn svg { width: 28px; height: 28px; fill: currentColor; }
+        .chat-toggle-btn .close-icon { display: none; }
+        .chat-toggle-btn.open .chat-icon { display: none; }
+        .chat-toggle-btn.open .close-icon { display: block; }
+
+        .chat-window {
+            position: fixed;
+            bottom: 96px;
+            right: 24px;
+            width: 340px;
+            height: 480px;
+            background: #fff;
+            border-radius: var(--r-md);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            border: 1px solid var(--line);
+            overflow: hidden;
+        }
+        .chat-window.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        
+        .chat-header {
+            background: var(--ink);
+            color: #fff;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chat-header .avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--yellow);
+            color: var(--ink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.8rem;
+        }
+        .chat-header-info h4 { margin: 0; font-size: 0.95rem; }
+        .chat-header-info p { margin: 0; font-size: 0.75rem; color: #bbb; }
+
+        .chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: var(--paper);
+        }
+        .msg {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: var(--r-sm);
+            font-size: 0.88rem;
+            line-height: 1.4;
+            animation: popIn 0.2s ease;
+        }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .msg.bot { background: #fff; color: var(--ink); border: 1px solid var(--line); border-bottom-left-radius: 2px; align-self: flex-start; }
+        .msg.user { background: var(--ink); color: #fff; border-bottom-right-radius: 2px; align-self: flex-end; }
+        
+        .typing-indicator { display: flex; gap: 4px; padding: 4px 8px; }
+        .typing-indicator span { width: 6px; height: 6px; background: #aaa; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+        .chat-input-area {
+            padding: 12px;
+            background: #fff;
+            border-top: 1px solid var(--line);
+            display: flex;
+            gap: 8px;
+        }
+        .chat-input-area input {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            font-size: 0.88rem;
+        }
+        .chat-input-area button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--yellow);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ink);
+            transition: background 0.2s;
+        }
+        .chat-input-area button:hover { background: var(--yellow-deep); }
+        .chat-input-area button svg { width: 18px; height: 18px; fill: currentColor; }
     </style>
 </head>
 <body>
@@ -177,7 +302,6 @@
         <div class="hero-inner">
             <div class="hero-copy">
                 <h1>Tap a bundle, pay with MoMo, done</h1>
-                <!-- Updated text to indicate maintenance -->
                 <p>We are currently experiencing technical difficulties. Purchases are temporarily unavailable while we resolve the issue.</p>
             </div>
             <div class="hero-stats" id="hero-stats">
@@ -209,7 +333,114 @@
 
     <div class="toast-container" id="toast-container"></div>
 
+    <!-- CHATBOT WIDGET -->
+    <button class="chat-toggle-btn" id="chat-toggle" aria-label="Open chat">
+        <svg class="chat-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        <svg class="close-icon" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header">
+            <div class="avatar">WD</div>
+            <div class="chat-header-info">
+                <h4>Walker Support</h4>
+                <p>Online · Typically replies instantly</p>
+            </div>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be injected here -->
+        </div>
+        <form class="chat-input-area" id="chat-form">
+            <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off" />
+            <button type="submit" aria-label="Send">
+                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+        </form>
+    </div>
+
     <script>
+        // --- CHATBOT LOGIC ---
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatWindow = document.getElementById('chat-window');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+        let botReplied = false;
+
+        chatToggle.addEventListener('click', () => {
+            chatWindow.classList.toggle('open');
+            chatToggle.classList.toggle('open');
+            if (chatWindow.classList.contains('open') && !botReplied) {
+                botReplied = true;
+                setTimeout(() => {
+                    addMessage("Hi there! 👋 I'm the Walker Data Hub assistant. How can I help you today?", 'bot');
+                }, 600);
+            }
+        });
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = chatInput.value.trim();
+            if (!text) return;
+            
+            addMessage(text, 'user');
+            chatInput.value = '';
+            
+            // Show typing indicator
+            const typingId = showTyping();
+            
+            setTimeout(() => {
+                removeTyping(typingId);
+                handleBotResponse(text);
+            }, 1000 + Math.random() * 1000);
+        });
+
+        function addMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `msg ${sender}`;
+            msgDiv.textContent = text;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            const id = 'typing-' + Date.now();
+            const div = document.createElement('div');
+            div.id = id;
+            div.className = 'msg bot';
+            div.innerHTML = `<div class="typing-indicator"><span></span><span></span><span></span></div>`;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return id;
+        }
+
+        function removeTyping(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function handleBotResponse(userText) {
+            const text = userText.toLowerCase();
+            let response = "";
+
+            if (text.includes('price') || text.includes('cost') || text.includes('how much')) {
+                response = "Our prices are temporarily hidden while we fix a technical issue. We'll be back up very soon!";
+            } else if (text.includes('mtn') || text.includes('telecel') || text.includes('airteltigo')) {
+                response = "We support MTN, Telecel, and AirtelTigo. However, purchases are currently paused for maintenance.";
+            } else if (text.includes('technical') || text.includes('issue') || text.includes('down') || text.includes('maintenance')) {
+                response = "Yes, we are currently experiencing technical difficulties. Our team is working hard to resolve it. Please check back later!";
+            } else if (text.includes('hi') || text.includes('hello') || text.includes('hey')) {
+                response = "Hello! How can I assist you today?";
+            } else if (text.includes('help')) {
+                response = "I can help with general questions. Please note that all purchases are currently disabled due to maintenance.";
+            } else {
+                response = "Thanks for your message! A human agent will get back to you shortly. Note: Purchases are currently disabled.";
+            }
+
+            addMessage(response, 'bot');
+        }
+
+        // --- EXISTING APP LOGIC ---
         const CONFIG = {
             API_BASE: '/api',
             ENABLE_LOGGING: true,
@@ -349,7 +580,6 @@
                     grid.innerHTML = `<div class="empty-state">No bundles for this network yet.</div>`;
                     return;
                 }
-                // UPDATED: Added 'disabled' attribute to the button and 'price-blur' class to the price span
                 grid.innerHTML = bundles.map(p => `
                     <button class="bundle-card theme-${p.network}" disabled onclick="openBuyModal('${p.id}')">
                         <span class="bundle-left">
